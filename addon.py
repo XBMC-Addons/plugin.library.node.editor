@@ -288,8 +288,10 @@ class Main:
             commandsNode.append( ( __language__(30104), "XBMC.RunPlugin(plugin://plugin.library.node.editor?ltype=%s&type=editorder&actionPath=" % ltype + os.path.join( nodes[ key ][ 2 ], "index.xml" ) + ")" ) )
             commandsNode.append( ( __language__(30105), "XBMC.RunPlugin(plugin://plugin.library.node.editor?ltype=%s&type=editvisibility&actionPath=" % ltype + os.path.join( nodes[ key ][ 2 ], "index.xml" ) + ")" ) )
             commandsNode.append( ( __language__(30100), "XBMC.RunPlugin(plugin://plugin.library.node.editor?ltype=%s&type=delete&actionPath=" % ltype + nodes[ key ][ 2 ] + ")" ) )
-            if showAddToMenu:
+            if showAddToMenu and "video" in targetDir:
                 commandsNode.append( ( __language__(30106), "XBMC.RunScript(script.skinshortcuts,type=addNode&options=" + urllib.unquote( nodes[ key ][ 2 ] ).replace( targetDir, "" ) + "|" + urllib.quote( label.encode( "utf-8" ) ) + "|" + urllib.quote( nodes[ key ][ 1 ].encode( "utf-8" ) ) + ")" ) )
+            elif showAddToMenu and "music" in targetDir:
+                commandsNode.append( ( __language__(30106), "XBMC.RunScript(script.skinshortcuts,type=addMusicNode&options=" + urllib.unquote( nodes[ key ][ 2 ] ).replace( targetDir, "" ) + "|" + urllib.quote( label.encode( "utf-8" ) ) + "|" + urllib.quote( nodes[ key ][ 1 ].encode( "utf-8" ) ) + ")" ) )
             commandsView.append( ( __language__(30101), "XBMC.RunPlugin(plugin://plugin.library.node.editor?ltype=%s&type=editlabel&actionPath=" % ltype + nodes[ key ][ 2 ] + "&label=" + nodes[ key ][ 0 ] + ")" ) )
             commandsView.append( ( __language__(30102), "XBMC.RunPlugin(plugin://plugin.library.node.editor?ltype=%s&type=editIcon&actionPath=" % ltype + nodes[ key ][ 2 ] + "&value=" + nodes[ key ][ 1 ] + ")" ) )
             commandsView.append( ( __language__(30103), "XBMC.RunPlugin(plugin://plugin.library.node.editor?ltype=%s&type=browseIcon&actionPath=" % ltype + nodes[ key ][ 2 ] + ")" ) )
