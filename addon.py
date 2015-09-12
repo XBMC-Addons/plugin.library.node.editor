@@ -166,28 +166,29 @@ class Main:
                     tree = xmltree.ElementTree( xmltree.Element( "node" ) )
                     root = tree.getroot()
                     subtree = xmltree.SubElement( root, "label" ).text = newNode
-                    # Ask user if they want to import defaults
-                    defaultNames = [ xbmc.getLocalizedString( 231 ), xbmc.getLocalizedString( 342 ), xbmc.getLocalizedString( 20343 ), xbmc.getLocalizedString( 20389 ) ]
-                    defaultValues = [ "", "movies", "tvshows", "musicvideos" ]
-                    selected = xbmcgui.Dialog().select( __language__( 30304 ), defaultNames )
-                    # If the user selected some defaults...
-                    if selected != -1 and selected != 0:
-                        try:
-                            # Copy those defaults across
-                            originDir = os.path.join( xbmc.translatePath( "special://xbmc".decode( "utf-8" ) ), "system", "library", ltype, defaultValues[ selected ] )
-                            dirs, files = xbmcvfs.listdir( originDir )
-                            for file in files:
-                                if file != "index.xml":
-                                    xbmcvfs.copy( os.path.join( originDir, file), os.path.join( foldername, file ) )
-                            # Open index.xml and copy values across
-                            index = xmltree.parse( os.path.join( originDir, "index.xml" ) ).getroot()
-                            if "visible" in index.attrib:
-                                root.set( "visible", index.attrib.get( "visible" ) )
-                            icon = index.find( "icon" )
-                            if icon is not None:
-                                xmltree.SubElement( root, "icon" ).text = icon.text
-                        except:
-                            print_exc()
+                    if self.PARAMS[ "ltype" ] == "video":
+                        # Ask user if they want to import defaults
+                        defaultNames = [ xbmc.getLocalizedString( 231 ), xbmc.getLocalizedString( 342 ), xbmc.getLocalizedString( 20343 ), xbmc.getLocalizedString( 20389 ) ]
+                        defaultValues = [ "", "movies", "tvshows", "musicvideos" ]
+                        selected = xbmcgui.Dialog().select( __language__( 30304 ), defaultNames )
+                        # If the user selected some defaults...
+                        if selected != -1 and selected != 0:
+                            try:
+                                # Copy those defaults across
+                                originDir = os.path.join( xbmc.translatePath( "special://xbmc".decode( "utf-8" ) ), "system", "library", ltype, defaultValues[ selected ] )
+                                dirs, files = xbmcvfs.listdir( originDir )
+                                for file in files:
+                                    if file != "index.xml":
+                                        xbmcvfs.copy( os.path.join( originDir, file), os.path.join( foldername, file ) )
+                                # Open index.xml and copy values across
+                                index = xmltree.parse( os.path.join( originDir, "index.xml" ) ).getroot()
+                                if "visible" in index.attrib:
+                                    root.set( "visible", index.attrib.get( "visible" ) )
+                                icon = index.find( "icon" )
+                                if icon is not None:
+                                    xmltree.SubElement( root, "icon" ).text = icon.text
+                            except:
+                                print_exc()
                     # Write the xml file
                     self.indent( root )
                     tree.write( os.path.join( foldername, "index.xml" ), encoding="UTF-8" )
