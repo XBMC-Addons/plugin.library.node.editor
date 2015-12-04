@@ -20,7 +20,7 @@ LANGUAGE     = ADDON.getLocalizedString
 CWD          = ADDON.getAddonInfo('path').decode("utf-8")
 ADDONNAME    = ADDON.getAddonInfo('name').decode("utf-8")
 RESOURCE     = xbmc.translatePath( os.path.join( CWD, 'resources', 'lib' ) ).decode("utf-8")
-DATAPATH     = xbmc.translatePath(xbmcaddon.Addon().getAddonInfo('path')).decode('utf-8')
+DATAPATH     = xbmc.translatePath(xbmcaddon.Addon().getAddonInfo('profile')).decode('utf-8')
 
 sys.path.append(RESOURCE)
 

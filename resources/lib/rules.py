@@ -17,7 +17,7 @@ ADDONNAME    = ADDON.getAddonInfo('name').decode("utf-8")
 LANGUAGE     = ADDON.getLocalizedString
 CWD          = ADDON.getAddonInfo('path').decode("utf-8")
 DEFAULTPATH  = xbmc.translatePath( os.path.join( CWD, 'resources' ).encode("utf-8") ).decode("utf-8")
-DATAPATH     = xbmc.translatePath(xbmcaddon.Addon().getAddonInfo('path')).decode('utf-8')
+DATAPATH     = xbmc.translatePath(xbmcaddon.Addon().getAddonInfo('profile')).decode('utf-8')
 ltype        = sys.modules[ '__main__' ].ltype
 
 def log(txt):
