@@ -1,5 +1,6 @@
 0.0.4
 - cosmetics
+- language update
 
 0.0.3
 - fix studio node creation
