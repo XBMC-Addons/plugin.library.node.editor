@@ -4,11 +4,7 @@ import xbmc, xbmcaddon, xbmcplugin, xbmcgui, xbmcvfs
 import xml.etree.ElementTree as xmltree
 import urllib
 from traceback import print_exc
-
-if sys.version_info < (2, 7):
-    import simplejson
-else:
-    import json as simplejson
+import json
 
 ADDON        = xbmcaddon.Addon()
 ADDONID      = ADDON.getAddonInfo('id').decode( 'utf-8' )
@@ -999,7 +995,7 @@ class RuleFunctions():
         # Browser instance used by majority of browses
         json_query = xbmc.executeJSONRPC('{ "jsonrpc": "2.0", "id": 0, "method": "Files.GetDirectory", "params": { "properties": ["title", "file", "thumbnail"], "directory": "library://%s/plugin.library.node.editor/temp.xml", "media": "files" } }' % ltype)
         json_query = unicode(json_query, 'utf-8', errors='ignore')
-        json_response = simplejson.loads(json_query)
+        json_response = json.loads(json_query)
         listings = []
         values = []
         # Add all directories returned by the json query
@@ -1027,7 +1023,7 @@ class RuleFunctions():
         # Browser instance used by playlists
         json_query = xbmc.executeJSONRPC('{ "jsonrpc": "2.0", "id": 0, "method": "Files.GetDirectory", "params": { "properties": ["title", "file", "thumbnail"], "directory": "special://%splaylists/", "media": "files" } }' % ltype)
         json_query = unicode(json_query, 'utf-8', errors='ignore')
-        json_response = simplejson.loads(json_query)
+        json_response = json.loads(json_query)
         listings = []
         values = []
         # Add all directories returned by the json query

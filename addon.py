@@ -7,11 +7,7 @@ import urllib
 from unidecode import unidecode
 from urlparse import parse_qs
 from traceback import print_exc
-
-if sys.version_info < (2, 7):
-    import simplejson
-else:
-    import json as simplejson
+import json
 
 ADDON        = xbmcaddon.Addon()
 ADDONID      = ADDON.getAddonInfo('id').decode( 'utf-8' )

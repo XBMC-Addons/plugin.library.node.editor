@@ -1,3 +1,6 @@
+1.0.0
+- remove simplejson support
+
 0.0.4
 - cosmetics
 - language update
