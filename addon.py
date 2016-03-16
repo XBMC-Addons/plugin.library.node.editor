@@ -163,9 +163,12 @@ class Main:
                     root = tree.getroot()
                     subtree = xmltree.SubElement( root, "label" ).text = newNode
                     # Ask user if they want to import defaults
-                    defaultNames = [ xbmc.getLocalizedString( 231 ), xbmc.getLocalizedString( 342 ), xbmc.getLocalizedString( 20343 ), xbmc.getLocalizedString( 20389 ) ]
-                    defaultValues = [ "", "movies", "tvshows", "musicvideos" ]
-                    selected = xbmcgui.Dialog().select( LANGUAGE( 30304 ), defaultNames )
+                    if ltype == "video":
+                        defaultNames = [ xbmc.getLocalizedString( 231 ), xbmc.getLocalizedString( 342 ), xbmc.getLocalizedString( 20343 ), xbmc.getLocalizedString( 20389 ) ]
+                        defaultValues = [ "", "movies", "tvshows", "musicvideos" ]
+                        selected = xbmcgui.Dialog().select( LANGUAGE( 30304 ), defaultNames )
+                    else:
+                        selected = 0
                     # If the user selected some defaults...
                     if selected != -1 and selected != 0:
                         try:
@@ -217,6 +220,25 @@ class Main:
                 ORDERBY.editOrderBy( self.PARAMS[ "actionPath" ], self.PARAMS[ "content" ], self.PARAMS[ "default" ] )
             elif self.PARAMS[ "type" ] == "editOrderByDirection":
                 ORDERBY.editDirection( self.PARAMS[ "actionPath" ], self.PARAMS[ "default" ] )
+            # --- Edit paths ---
+            elif self.PARAMS[ "type" ] == "addPath":
+                ATTRIB.addPath( self.PARAMS[ "actionPath" ] )
+            elif self.PARAMS[ "type" ] == "editPath":
+                ATTRIB.editPath( self.PARAMS[ "actionPath" ], self.PARAMS[ "value" ] )
+            elif self.PARAMS[ "type" ] == "pathRule":
+                PATHRULE.displayRule( self.PARAMS[ "actionPath" ], int( self.PARAMS[ "rule" ] ) )
+                return
+            elif self.PARAMS[ "type" ] == "deletePathRule":
+                ATTRIB.deletePathRule( self.PARAMS[ "actionPath" ], int( self.PARAMS[ "rule" ] ) )
+            elif self.PARAMS[ "type" ] == "editPathMatch":
+                # Editing the field the rule is matched against
+                PATHRULE.editMatch( self.PARAMS[ "actionPath" ], int( self.PARAMS[ "rule" ] ) )
+            elif self.PARAMS[ "type" ] == "editPathValue":
+                # Editing the value of a rule
+                PATHRULE.editValue( self.PARAMS[ "actionPath" ], int( self.PARAMS[ "rule" ] ) )
+            elif self.PARAMS[ "type" ] == "browsePathValue":
+                # Browse for the new value of a rule
+                PATHRULE.browse( self.PARAMS[ "actionPath" ], int( self.PARAMS[ "rule" ] ) )
             # --- Edit other attribute of view ---
             #  > Content
             elif self.PARAMS[ "type" ] == "editContent":
@@ -227,11 +249,6 @@ class Main:
             #  > Limit
             elif self.PARAMS[ "type" ] == "editLimit":
                 ATTRIB.editLimit( self.PARAMS[ "actionPath" ], self.PARAMS[ "value" ] )
-            #  > Path
-            elif self.PARAMS[ "type" ] == "addPath":
-                ATTRIB.addPath( self.PARAMS[ "actionPath" ] )
-            elif self.PARAMS[ "type" ] == "editPath":
-                ATTRIB.editPath( self.PARAMS[ "actionPath" ], self.PARAMS[ "value" ] )
             #  > Icon (also for node)
             elif self.PARAMS[ "type" ] == "editIcon":
                 ATTRIB.editIcon( self.PARAMS[ "actionPath" ], self.PARAMS[ "value" ] )
@@ -254,10 +271,6 @@ class Main:
         else:
             self.listNodes( targetDir, nodes )
         self.PATH = urllib.quote( self.PATH )
-        # Check whether we should show Add To Menu option
-        showAddToMenu = False
-        if xbmc.getCondVisibility( "Skin.HasSetting(SkinShortcuts-FullMenu)" ):
-            showAddToMenu = True
         for key in nodes:
             # 0 = Label
             # 1 = Icon
@@ -284,8 +297,6 @@ class Main:
             commandsNode.append( ( LANGUAGE(30104), "XBMC.RunPlugin(plugin://plugin.library.node.editor?ltype=%s&type=editorder&actionPath=" % ltype + os.path.join( nodes[ key ][ 2 ], "index.xml" ) + ")" ) )
             commandsNode.append( ( LANGUAGE(30105), "XBMC.RunPlugin(plugin://plugin.library.node.editor?ltype=%s&type=editvisibility&actionPath=" % ltype + os.path.join( nodes[ key ][ 2 ], "index.xml" ) + ")" ) )
             commandsNode.append( ( LANGUAGE(30100), "XBMC.RunPlugin(plugin://plugin.library.node.editor?ltype=%s&type=delete&actionPath=" % ltype + nodes[ key ][ 2 ] + ")" ) )
-            if showAddToMenu:
-                commandsNode.append( ( LANGUAGE(30106), "XBMC.RunScript(script.skinshortcuts,type=addNode&options=" + urllib.unquote( nodes[ key ][ 2 ] ).replace( targetDir, "" ) + "|" + urllib.quote( label.encode( "utf-8" ) ) + "|" + urllib.quote( nodes[ key ][ 1 ].encode( "utf-8" ) ) + ")" ) )
             commandsView.append( ( LANGUAGE(30101), "XBMC.RunPlugin(plugin://plugin.library.node.editor?ltype=%s&type=editlabel&actionPath=" % ltype + nodes[ key ][ 2 ] + "&label=" + nodes[ key ][ 0 ] + ")" ) )
             commandsView.append( ( LANGUAGE(30102), "XBMC.RunPlugin(plugin://plugin.library.node.editor?ltype=%s&type=editIcon&actionPath=" % ltype + nodes[ key ][ 2 ] + "&value=" + nodes[ key ][ 1 ] + ")" ) )
             commandsView.append( ( LANGUAGE(30103), "XBMC.RunPlugin(plugin://plugin.library.node.editor?ltype=%s&type=browseIcon&actionPath=" % ltype + nodes[ key ][ 2 ] + ")" ) )
@@ -385,9 +396,35 @@ class Main:
                     hasLimit = True
                 elif rule[ 0 ] == "path":
                     # 1 = path
-                    listitem = xbmcgui.ListItem( label="%s: %s" % ( LANGUAGE(30204), rule[ 1 ] ) )
-                    commands.append( ( LANGUAGE(30100), "XBMC.RunPlugin(plugin://plugin.library.node.editor?ltype=%s&type=deletenode&actionPath=" % ltype + self.PATH + "&node=path)" ) )
-                    action = "plugin://plugin.library.node.editor?ltype=%s&type=editPath&actionPath=" % ltype + self.PATH + "&value=" + rule[ 1 ]
+                    # Split the path into components
+                    splitPath = ATTRIB.splitPath( rule[ 1 ] )
+
+                    # Add each element of the path to the list
+                    for x, component in enumerate( splitPath ):
+                        if x == 0:
+                            # library://path/
+                            listitem = xbmcgui.ListItem( label="%s: %s" % ( LANGUAGE(30204), ATTRIB.translatePath( component ) ) )
+                            commands.append( ( LANGUAGE(30100), "XBMC.RunPlugin(plugin://plugin.library.node.editor?ltype=%s&type=deletenode&actionPath=" % ltype + self.PATH + "&node=path)" ) )
+                            action = "plugin://plugin.library.node.editor?ltype=%s&type=addPath&actionPath=" % ltype + self.PATH
+
+                            # Get the rules
+                            rules = PATHRULE.getRulesForPath( splitPath[ 0 ] )
+                        if x != 0:
+                            # Specific component
+
+                            # Add the listitem generated from the last component we processed
+                            listitem.addContextMenuItems( commands, replaceItems = True )
+                            xbmcplugin.addDirectoryItem( int(sys.argv[ 1 ]), action, listitem, isFolder=True )
+                            commands = []
+
+                            # Get the rule for this component
+                            componentRule = PATHRULE.getMatchingRule( component, rules )
+                            translatedComponent = PATHRULE.translateComponent( componentRule, splitPath[ x ] )
+                            translatedValue = PATHRULE.translateValue( componentRule, splitPath, x )
+
+                            listitem = xbmcgui.ListItem( label="%s: %s" % ( translatedComponent, translatedValue ) )
+                            commands.append( ( LANGUAGE(30100), "XBMC.RunPlugin(plugin://plugin.library.node.editor?ltype=%s&type=deletePathRule&actionPath=%s&rule=%d)" %( ltype, self.PATH, x ) ) )
+                            action = "plugin://plugin.library.node.editor?ltype=%s&type=pathRule&actionPath=%s&rule=%d" % ( ltype, self.PATH, x )
                     hasPath = True
                 elif rule[ 0 ] == "rule":
                     # 1 = field
@@ -406,7 +443,7 @@ class Main:
                     action = "plugin://plugin.library.node.editor?ltype=%s&type=rule&actionPath=" % ltype + self.PATH + "&rule=" + str( rule[ 4 ] )
                     rulecount += 1
                 listitem.addContextMenuItems( commands, replaceItems = True )
-                if rule[ 0 ] == "rule" or rule[ 0 ] == "order":
+                if rule[ 0 ] == "rule" or rule[ 0 ] == "order" or rule[ 0 ] == "path":
                     xbmcplugin.addDirectoryItem( int(sys.argv[ 1 ]), action, listitem, isFolder=True )
                 else:
                     xbmcplugin.addDirectoryItem( int(sys.argv[ 1 ]), action, listitem, isFolder=False )
@@ -428,6 +465,11 @@ class Main:
         if hasContent:
             # Add rule
             xbmcplugin.addDirectoryItem( int( sys.argv[ 1 ] ), "plugin://plugin.library.node.editor?ltype=%s&type=rule&actionPath=" % ltype + self.PATH + "&rule=" + str( nextRule ), xbmcgui.ListItem( label=LANGUAGE(30005) ), isFolder = True )
+        if hasPath:
+            # Add component
+            xbmcplugin.addDirectoryItem( int( sys.argv[ 1 ] ), "plugin://plugin.library.node.editor?ltype=%s&type=pathRule&actionPath=%s&rule=%d" % ( ltype, self.PATH, x + 1 ), xbmcgui.ListItem( label=LANGUAGE(30009) ), isFolder = True )
+            # Manually edit path
+            xbmcplugin.addDirectoryItem( int( sys.argv[ 1 ] ), "plugin://plugin.library.node.editor?ltype=%s&type=editPath&actionPath=" % ltype + self.PATH + "&value=" + rule[ 1 ], xbmcgui.ListItem( label=LANGUAGE(30010) ), isFolder = True )
         xbmcplugin.endOfDirectory(handle=int(sys.argv[1]))
 
     def _parse_argv( self ):
@@ -740,9 +782,11 @@ if ( __name__ == "__main__" ):
         params = dict( arg.split( "=" ) for arg in sys.argv[ 2 ][1:].split( "&" ) )
         ltype = params['ltype']
     if ltype != '':
-        import rules, viewattrib, orderby
+        import rules, pathrules, viewattrib, orderby
         RULE = rules.RuleFunctions()
         ATTRIB = viewattrib.ViewAttribFunctions()
+        PATHRULE = pathrules.PathRuleFunctions()
+        PATHRULE.ATTRIB = ATTRIB
         ORDERBY = orderby.OrderByFunctions()
         Main()
 

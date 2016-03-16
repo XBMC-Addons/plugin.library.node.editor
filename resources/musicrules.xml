@@ -221,4 +221,103 @@
 		<type label="132">albums</type>
 		<type label="134">songs</type>
 	</content>
+
+	<paths>
+		<type label="135" name="musicdb://genres"/>
+		<type label="133" name="musicdb://artists"/>
+		<type label="132" name="musicdb://albums"/>
+		<type label="1050" name="musicdb://singles"/>
+		<type label="134" name="musicdb://songs"/>
+		<type label="271" name="musicdb://top100">
+			<type label="134" name="songs"/>
+			<type label="132" name="albums"/>
+		</type>
+		<type label="359" name="musicdb://recentlyaddedalbums"/>
+		<type label="517" name="musicdb://recentlyplayedalbums"/>
+		<type label="521" name="musicdb://compilations"/>
+		<type label="652" name="musicdb://years"/>
+		<type label="744" name="sources://music">
+			<content>None</content>
+		</type>
+		<type label="136" name="special://videoplaylists">
+			<content>None</content>
+		</type>
+	</paths>
+
+	<pathRules>
+		<rule name="roleid" label="30510">
+			<value>integer</value>
+			<content>artists</content>
+			<content>albums</content>
+		</rule>
+		<rule name="role" label="38033">
+			<value>string</value>
+			<content>artists</content>
+			<content>albums</content>
+		</rule>
+		<rule name="artistid" label="30508">
+			<value>integer</value>
+			<content>artists</content>
+			<content>albums</content>
+			<content>songs</content>
+			<content>singles</content>
+			<browse>musicdb://artists/</browse>
+		</rule>
+		<rule name="genreid" label="30500">
+			<value>integer</value>
+			<content>artists</content>
+			<content>albums</content>
+			<content>songs</content>
+			<content>singles</content>
+			<browse>musicdb://genres/</browse>
+		</rule>
+		<rule name="genre" label="515">
+			<value>string</value>
+			<content>artists</content>
+			<content>albums</content>
+			<content>songs</content>
+			<content>singles</content>
+			<browse>musicdb://genres/</browse>
+		</rule>
+		<rule name="albumid" label="30509">
+			<value>integer</value>
+			<content>artists</content>
+			<content>songs</content>
+			<content>singles</content>
+			<browse>musicdb://albums/</browse>
+		</rule>
+		<rule name="album" label="558">
+			<value>string</value>
+			<content>artists</content>
+			<content>songs</content>
+			<content>singles</content>
+			<browse>musicdb://albums/</browse>
+		</rule>
+		<rule name="songid" label="30511">
+			<value>integer</value>
+			<content>artists</content>
+			<browse>musicdb://songs/</browse>
+		</rule>
+		<rule name="albumartistsonly" label="30512">
+			<value>boolean</value>
+			<content>artists</content>
+		</rule>
+		<rule name="year" label="345">
+			<value>integer</value>
+			<content>albums</content>
+			<content>songs</content>
+			<content>singles</content>
+			<browse>musicdb://years/</browse>
+		</rule>
+		<rule name="compilation" label="521">
+			<value>boolean</value>
+			<content>albums</content>
+			<content>songs</content>
+			<content>singles</content>
+		</rule>
+		<rule name="showsingles" label="30513">
+			<value>boolean</value>
+			<content>albums</content>
+		</rule>
+	</pathRules>
 </rules>

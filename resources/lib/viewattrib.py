@@ -3,6 +3,7 @@ import os, sys
 import xbmc, xbmcaddon, xbmcplugin, xbmcgui, xbmcvfs
 import xml.etree.ElementTree as xmltree
 import urllib
+import json
 from traceback import print_exc
 
 ADDON        = xbmcaddon.Addon()
@@ -111,21 +112,26 @@ class ViewAttribFunctions():
             self.writeUpdatedRule( actionPath, "limit", returnVal )
 
     def addPath( self, actionPath ):
-        returnVal = xbmcgui.Dialog().input( "Path", type=xbmcgui.INPUT_ALPHANUM )
-        if returnVal != "":
-            try:
-                tree = xmltree.parse( actionPath )
-                root = tree.getroot()
-                # Add a new path tag
-                newContent = xmltree.SubElement( root, "path" )
-                newContent.text = returnVal.decode( "utf-8" )
-                # Set type to 'folder'
-                root.set( "type", "folder" )
-                # Save the file
-                self.indent( root )
-                tree.write( actionPath, encoding="UTF-8" )
-            except:
-                print_exc()
+        # Load all the rules
+        tree = self._load_rules().getroot()
+        elems = tree.find( "paths" ).findall( "type" )
+        selectName = []
+        selectValue = []
+        # Find all the path types
+        for elem in elems:
+            selectName.append( xbmc.getLocalizedString( int( elem.attrib.get( "label" ) ) ) )
+            selectValue.append( elem.attrib.get( "name" ) )
+            # Find any sub-path types
+            for subElem in elem.findall( "type" ):
+                selectName.append( "  - %s" %( xbmc.getLocalizedString( int( subElem.attrib.get( "label" ) ) ) ) )
+                selectValue.append( "%s/%s" %( elem.attrib.get( "name" ), subElem.attrib.get( "name" ) ) )
+
+        # Let the user select a path
+        selectedContent = xbmcgui.Dialog().select( LANGUAGE( 30309 ), selectName )
+        # If the user selected no operator...
+        if selectedContent == -1:
+            return
+        self.writeUpdatedPath( actionPath, (0, selectValue[ selectedContent ] ), addFolder = True )
 
     def editPath( self, actionPath, curValue ):
         returnVal = xbmcgui.Dialog().input( LANGUAGE( 30312 ), curValue, type=xbmcgui.INPUT_ALPHANUM )
@@ -163,6 +169,150 @@ class ViewAttribFunctions():
         except:
             print_exc()
 
+    def writeUpdatedPath( self, actionPath, newComponent, addFolder = False ):
+        # This functions writes an updated path
+        try:
+            # Load the xml file
+            tree = xmltree.parse( actionPath )
+            root = tree.getroot()
+            # Add type="folder" if requested
+            if addFolder:
+                root.set( "type", "folder" )
+            # Find the current path element
+            elem = root.find( "path" )
+            if elem is None:
+                # There's no existing path element, so create one
+                elem = xmltree.SubElement( root, "path" )
+            # Get the split version of the path
+            splitPath = self.splitPath( elem.text )
+            elem.text = ""
+            # If the splitPath is empty, add our new component straight away
+            if len( splitPath ) == 0:
+                elem.text = "%s/" %( newComponent[ 1 ] )
+            else:
+                # Enumarate through everything in the existing path
+                for x, component in enumerate( splitPath ):
+                    if x != newComponent[ 0 ]:
+                        # Transfer this component to the new path
+                        if x == 0:
+                            elem.text = self.joinPath( component )
+                        elif x == 1:
+                            elem.text += "?%s=%s" %( component[ 0 ], urllib.quote( component[ 1 ].encode( "utf-8" ) ).decode( "utf-8" ) )
+                        else:
+                            elem.text += "&%s=%s" %( component[ 0 ], urllib.quote( component[ 1 ].encode( "utf-8" ) ).decode( "utf-8" ) )
+                    else:
+                        # Add our new component
+                        if x == 0:
+                            elem.text = "%s/" %( newComponent[ 1 ] )
+                        elif x == 1:
+                            elem.text += "?%s=%s" %( newComponent[ 1 ], urllib.quote( newComponent[ 2 ].encode( "utf-8" ) ).decode( "utf-8" ) )
+                        else:
+                            elem.text += "&%s=%s" %( newComponent[ 1 ], urllib.quote( newComponent[ 2 ].encode( "utf-8" ) ).decode( "utf-8" ) )
+                # Check that we added it
+                if x < newComponent[ 0 ]:
+                    if newComponent[ 0 ] == 1:
+                        elem.text += "?%s=%s" %( newComponent[ 1 ], urllib.quote( newComponent[ 2 ].encode( "utf-8" ) ).decode( "utf-8" ) )
+                    else:
+                        elem.text += "&%s=%s" %( newComponent[ 1 ], urllib.quote( newComponent[ 2 ].encode( "utf-8" ) ).decode( "utf-8" ) )
+            # Save the file
+            self.indent( root )
+            tree.write( actionPath, encoding="UTF-8" )
+        except:
+            print_exc()
+
+    def deletePathRule( self, actionPath, rule ):
+        # This function deletes a rule from a path component
+        result = xbmcgui.Dialog().yesno(ADDONNAME, LANGUAGE( 30407 ) )
+        if not result:
+            return
+
+        try:
+            # Load the xml file
+            tree = xmltree.parse( actionPath )
+            root = tree.getroot()
+            # Find the current path element
+            elem = root.find( "path" )
+            # Get the split version of the path
+            splitPath = self.splitPath( elem.text )
+            elem.text = ""
+
+            # Enumarate through everything in the existing path
+            addedQ = False
+            for x, component in enumerate( splitPath ):
+                if x != rule:
+                    # Transfer this component to the new path
+                    if x == 0:
+                        elem.text = self.joinPath( component )
+                    elif not addedQ:
+                        elem.text += "?%s=%s" %( component[ 0 ], urllib.quote( component[ 1 ].encode( "utf-8" ) ).decode( "utf-8" ) )
+                        addedQ = True
+                    else:
+                        elem.text += "&%s=%s" %( component[ 0 ], urllib.quote( component[ 1 ].encode( "utf-8" ) ).decode( "utf-8" ) )
+            # Save the file
+            self.indent( root )
+            tree.write( actionPath, encoding="UTF-8" )
+        except:
+            print_exc()
+
+    def splitPath( self, completePath ):
+        # This function returns an array of the different components of a path
+        # [library]://[primary path]/[secondary path]/?attribute1=value1&attribute2=value2...
+        # [(                        ,              )] [(        ,    )] [(        ,    )]...
+        splitPath = []
+
+        # If completePath is empty, return an empty list
+        if completePath is None:
+            return []
+
+        # Split, get the library://primarypath/[secondarypath]
+        split = completePath.rsplit( "/", 1 )
+        if split[ 0 ].count( "/" ) == 3:
+            # There's a secondary path
+            paths = split[ 0 ].rsplit( "/", 1 )
+            splitPath.append( ( paths[0], paths[1] ) )
+        else:
+            splitPath.append( ( split[ 0 ], None ) )
+
+
+        # Now split the components
+        if len( split ) != 1 and split[ 1 ].startswith( "?" ):
+            for component in split[ 1 ][ 1: ].split( "&" ):
+                componentSplit = component.split( "=" )
+                splitPath.append( ( componentSplit[ 0 ], urllib.unquote( componentSplit[ 1 ].encode( "utf-8" ) ).decode( "utf-8" ) ) )
+
+        return splitPath
+
+    def joinPath( self, components ):
+        # This function rejoins the library://path/subpath components of a path
+        returnPath = "%s/" %( components[ 0 ] )
+        if components[ 1 ] is not None:
+            returnPath += "%s/" %( components[ 1 ] )
+        return returnPath
+
+
+    def translatePath( self, path ):
+        # Load the rules
+        tree = self._load_rules()
+        subSearch = None
+        translated = [ path[ 0 ], path[ 1 ] ]
+        elems = tree.getroot().find( "paths" ).findall( "type" )
+        for elem in elems:
+            if elem.attrib.get( "name" ) == path[ 0 ]:
+                translated[ 0 ] = xbmc.getLocalizedString( int( elem.attrib.get( "label" ) ) )
+                subSearch = elem
+                break
+
+        if path[ 1 ] and subSearch is not None:
+            for elem in subSearch.findall( "type" ):
+                if elem.attrib.get( "name" ) == path[ 1 ]:
+                    translated[ 1 ] = xbmc.getLocalizedString( int( elem.attrib.get( "label" ) ) )
+                    break
+
+        returnString = translated[ 0 ]
+        if translated[ 1 ]:
+            returnString += " - %s" %( translated[ 1 ] )
+
+        return returnString
 
     # in-place prettyprint formatter
     def indent( self, elem, level=0 ):
