@@ -211,6 +211,9 @@ class Main:
             elif self.PARAMS[ "type" ] == "deleteRule":
                 # Delete a rule
                 RULE.deleteRule( self.PARAMS[ "actionPath" ], self.PARAMS[ "rule" ] )
+            elif self.PARAMS[ "type" ] == "editRulesMatch":
+                # Editing whether any or all rules must match
+                ATTRIB.editMatch( self.PARAMS[ "actionPath" ] )
             # --- Edit order-by ---
             elif self.PARAMS[ "type" ] == "orderby":
                 # Display all elements of order by
@@ -442,6 +445,11 @@ class Main:
                     commands.append( ( LANGUAGE(30100), "XBMC.RunPlugin(plugin://plugin.library.node.editor?ltype=%s&type=deleteRule&actionPath=" % ltype + self.PATH + "&rule=" + str( rule[ 4 ] ) + ")" ) )
                     action = "plugin://plugin.library.node.editor?ltype=%s&type=rule&actionPath=" % ltype + self.PATH + "&rule=" + str( rule[ 4 ] )
                     rulecount += 1
+                elif rule[ 0 ] == "match":
+                    # 1 = value
+                    listitem = xbmcgui.ListItem( label="%s: %s" % ( LANGUAGE(30206), ATTRIB.translateMatch( rule[ 1 ] ) ) )
+                    action = "plugin://plugin.library.node.editor?ltype=%s&type=editRulesMatch&actionPath=%s" %( ltype, self.PATH )
+                    hasGroup = True
                 listitem.addContextMenuItems( commands, replaceItems = True )
                 if rule[ 0 ] == "rule" or rule[ 0 ] == "order" or rule[ 0 ] == "path":
                     xbmcplugin.addDirectoryItem( int(sys.argv[ 1 ]), action, listitem, isFolder=True )
@@ -518,8 +526,10 @@ class Main:
                 path = root.find( "path" )
                 if path is not None:
                     returnVal.append( ( "path", path.text ) )
-            ruleNum = 0
+            # Save the current length of the returnVal - we'll insert Match here if there are two or more rules
+            currentLen = len( returnVal )
             # Look for any rules
+            ruleNum = 0
             if actionPath.endswith( "index.xml" ):
                 # Load the rules from RULE module
                 rules = RULE.getNodeRules( actionPath )
@@ -545,6 +555,14 @@ class Main:
                             if not RULE.isNodeRule( translated, actionPath ):
                                 returnVal.append( ( "rule", rule.attrib.get( "field" ), rule.attrib.get( "operator" ), "", ruleNum ) )
                         ruleNum += 1
+                    # Get any current match value if there are more than two rules
+                    # (if there's only one, the match value doesn't matter)
+                    if ruleNum >= 2:
+                        matchRules = "all"
+                        match = root.find( "match" )
+                        if match is not None:
+                            matchRules = match.text
+                        returnVal.insert( currentLen, ( "match", matchRules ) )
                     return returnVal, len( rules )
             return returnVal, 0
         except:
