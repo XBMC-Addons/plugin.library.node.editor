@@ -314,6 +314,22 @@ class ViewAttribFunctions():
 
         return returnString
 
+    def translateMatch( self, value ):
+        if value == "any":
+            return xbmc.getLocalizedString(21426).capitalize()
+        else:
+            return xbmc.getLocalizedString(21425).capitalize()
+
+    def editMatch( self, actionPath ):
+        selectName = [ xbmc.getLocalizedString(21425).capitalize(), xbmc.getLocalizedString(21426).capitalize() ]
+        selectValue = [ "all", "any" ]
+        # Let the user select wether any or all rules need match
+        selectedMatch = xbmcgui.Dialog().select( LANGUAGE( 30310 ), selectName )
+        # If the user made no selection...
+        if selectedMatch == -1:
+            return
+        self.writeUpdatedRule( actionPath, "match", selectValue[ selectedMatch ] )
+
     # in-place prettyprint formatter
     def indent( self, elem, level=0 ):
         i = "\n" + level*"\t"

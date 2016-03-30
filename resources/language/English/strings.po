@@ -133,7 +133,11 @@ msgctxt "#30205"
 msgid "Rule"
 msgstr ""
 
-#empty strings from id 30206 to 30299
+msgctxt "#30206"
+msgid "Match"
+msgstr ""
+
+#empty strings from id 30207 to 30299
 
 # Titles for dialogs
 msgctxt "#30300"
