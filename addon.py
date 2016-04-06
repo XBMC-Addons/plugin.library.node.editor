@@ -361,6 +361,7 @@ class Main:
         hasGroup = False
         hasLimit = False
         hasPath = False
+        splitPath = None
         rulecount = 0
         self.PATH = self.PATH
         if rules is not None:
@@ -474,8 +475,9 @@ class Main:
             # Add rule
             xbmcplugin.addDirectoryItem( int( sys.argv[ 1 ] ), "plugin://plugin.library.node.editor?ltype=%s&type=rule&actionPath=" % ltype + self.PATH + "&rule=" + str( nextRule ), xbmcgui.ListItem( label=LANGUAGE(30005) ), isFolder = True )
         if hasPath:
-            # Add component
-            xbmcplugin.addDirectoryItem( int( sys.argv[ 1 ] ), "plugin://plugin.library.node.editor?ltype=%s&type=pathRule&actionPath=%s&rule=%d" % ( ltype, self.PATH, x + 1 ), xbmcgui.ListItem( label=LANGUAGE(30009) ), isFolder = True )
+            if "plugin://" not in splitPath[0][0]:
+                # Add component
+                xbmcplugin.addDirectoryItem( int( sys.argv[ 1 ] ), "plugin://plugin.library.node.editor?ltype=%s&type=pathRule&actionPath=%s&rule=%d" % ( ltype, self.PATH, x + 1 ), xbmcgui.ListItem( label=LANGUAGE(30009) ), isFolder = True )
             # Manually edit path
             xbmcplugin.addDirectoryItem( int( sys.argv[ 1 ] ), "plugin://plugin.library.node.editor?ltype=%s&type=editPath&actionPath=" % ltype + self.PATH + "&value=" + rule[ 1 ], xbmcgui.ListItem( label=LANGUAGE(30010) ), isFolder = True )
         xbmcplugin.endOfDirectory(handle=int(sys.argv[1]))

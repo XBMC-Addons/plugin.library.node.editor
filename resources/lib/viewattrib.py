@@ -5,6 +5,7 @@ import xml.etree.ElementTree as xmltree
 import urllib
 import json
 from traceback import print_exc
+import pluginBrowser
 
 ADDON        = xbmcaddon.Addon()
 ADDONID      = ADDON.getAddonInfo('id').decode( 'utf-8' )
@@ -126,12 +127,24 @@ class ViewAttribFunctions():
                 selectName.append( "  - %s" %( xbmc.getLocalizedString( int( subElem.attrib.get( "label" ) ) ) ) )
                 selectValue.append( "%s/%s" %( elem.attrib.get( "name" ), subElem.attrib.get( "name" ) ) )
 
+        # Add option to select a plugin
+        selectName.append( LANGUAGE( 30514 ) )
+        selectValue.append( "::PLUGIN::" )
+
         # Let the user select a path
         selectedContent = xbmcgui.Dialog().select( LANGUAGE( 30309 ), selectName )
         # If the user selected no operator...
         if selectedContent == -1:
             return
-        self.writeUpdatedPath( actionPath, (0, selectValue[ selectedContent ] ), addFolder = True )
+        if selectValue[ selectedContent ] == "::PLUGIN::":
+            # The user has asked to browse for a plugin
+            path = pluginBrowser.getPluginPath()
+            if path is not None:
+                # User has selected a plugin
+                self.writeUpdatedPath( actionPath, (0, path), addFolder = True)
+        else:
+            # The user has chosen a specific path
+            self.writeUpdatedPath( actionPath, (0, selectValue[ selectedContent ] ), addFolder = True )
 
     def editPath( self, actionPath, curValue ):
         returnVal = xbmcgui.Dialog().input( LANGUAGE( 30312 ), curValue, type=xbmcgui.INPUT_ALPHANUM )
@@ -186,9 +199,12 @@ class ViewAttribFunctions():
             # Get the split version of the path
             splitPath = self.splitPath( elem.text )
             elem.text = ""
-            # If the splitPath is empty, add our new component straight away
             if len( splitPath ) == 0:
+                # If the splitPath is empty, add our new component straight away
                 elem.text = "%s/" %( newComponent[ 1 ] )
+            elif newComponent[ 0 ] == 0 and newComponent[ 1 ].startswith( "plugin://"):
+                # We've been passed a plugin, so only want to write that plugin
+                elem.text = newComponent[ 1 ]
             else:
                 # Enumarate through everything in the existing path
                 for x, component in enumerate( splitPath ):
@@ -263,6 +279,10 @@ class ViewAttribFunctions():
         # If completePath is empty, return an empty list
         if completePath is None:
             return []
+
+        # If it's a plugin, then we don't want to split it as its unlikely the user will want to edit individual components
+        if completePath.startswith( "plugin://" ):
+            return [ ( completePath, None ) ]
 
         # Split, get the library://primarypath/[secondarypath]
         split = completePath.rsplit( "/", 1 )

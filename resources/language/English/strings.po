@@ -259,7 +259,15 @@ msgctxt "#30409"
 msgid "No options to select from were found"
 msgstr ""
 
-#empty strings from id 30410 to 30499
+msgctxt "#30410"
+msgid "Getting plugin listings..."
+msgstr ""
+
+msgctxt "#30411"
+msgid "Link path to here"
+msgstr ""
+
+#empty strings from id 30412 to 30499
 
 # Labels for path rules
 
@@ -317,4 +325,8 @@ msgstr ""
 
 msgctxt "#30513"
 msgid "Show singles"
+msgstr ""
+
+msgctxt "#30514"
+msgid "Plugin..."
 msgstr ""
