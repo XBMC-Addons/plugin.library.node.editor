@@ -120,6 +120,7 @@ class RuleFunctions():
                                 action = "plugin://plugin.library.node.editor?ltype=%s&type=browseValue&actionPath=" % ltype + actionPath + "&rule=" + str( ruleCount ) + "&match=" + translated[ 0 ][ 1 ] + "&content=" + content
                                 xbmcplugin.addDirectoryItem( int(sys.argv[ 1 ]), action, listitem, isFolder=False )
                             #self.browse( translated[ 0 ][ 1 ], content )
+                        xbmcplugin.setContent(int(sys.argv[1]), 'files')
                         xbmcplugin.endOfDirectory(handle=int(sys.argv[1]))
                         return
                     ruleCount = ruleCount + 1
@@ -445,6 +446,7 @@ class RuleFunctions():
                             action = "plugin://plugin.library.node.editor?ltype=%s&type=browseValue&actionPath=" % ltype + actionPath + "&rule=" + str( ruleCount ) + "&match=" + translated[ 0 ][ 1 ] + "&content=NONE"
                             xbmcplugin.addDirectoryItem( int(sys.argv[ 1 ]), action, listitem, isFolder=False )
                         #self.browse( translated[ 0 ][ 1 ], content )
+                    xbmcplugin.setContent(int(sys.argv[1]), 'files')
                     xbmcplugin.endOfDirectory(handle=int(sys.argv[1]))
                     return
                 ruleCount += 1

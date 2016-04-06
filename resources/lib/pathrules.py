@@ -110,6 +110,7 @@ class PathRuleFunctions():
                 action = "plugin://plugin.library.node.editor?ltype=%s&type=browsePathValue&actionPath=%s&rule=%s" %( ltype, actionPath, ruleNum )
                 xbmcplugin.addDirectoryItem( int(sys.argv[ 1 ]), action, listitem, isFolder=False )
 
+            xbmcplugin.setContent(int(sys.argv[1]), 'files')
             xbmcplugin.endOfDirectory(handle=int(sys.argv[1]))
             return
         except:
