@@ -350,6 +350,7 @@ class Main:
         xbmcplugin.addDirectoryItem( int( sys.argv[ 1 ] ), "plugin://plugin.library.node.editor?ltype=%s&type=newNode&actionPath=" % ltype + self.PATH, xbmcgui.ListItem( label=LANGUAGE(30007) ), isFolder=False )
         if showReset:
             xbmcplugin.addDirectoryItem( int(sys.argv[ 1 ]), "plugin://plugin.library.node.editor?ltype=%s&type=delete&actionPath=" % ltype + targetDir, xbmcgui.ListItem( label=LANGUAGE(30008) ), isFolder=False )
+        xbmcplugin.setContent(int(sys.argv[1]), 'files')
         xbmcplugin.endOfDirectory(handle=int(sys.argv[1]))
 
     def RulesList( self ):
@@ -361,6 +362,7 @@ class Main:
         hasGroup = False
         hasLimit = False
         hasPath = False
+        splitPath = None
         rulecount = 0
         self.PATH = self.PATH
         if rules is not None:
@@ -474,10 +476,12 @@ class Main:
             # Add rule
             xbmcplugin.addDirectoryItem( int( sys.argv[ 1 ] ), "plugin://plugin.library.node.editor?ltype=%s&type=rule&actionPath=" % ltype + self.PATH + "&rule=" + str( nextRule ), xbmcgui.ListItem( label=LANGUAGE(30005) ), isFolder = True )
         if hasPath:
-            # Add component
-            xbmcplugin.addDirectoryItem( int( sys.argv[ 1 ] ), "plugin://plugin.library.node.editor?ltype=%s&type=pathRule&actionPath=%s&rule=%d" % ( ltype, self.PATH, x + 1 ), xbmcgui.ListItem( label=LANGUAGE(30009) ), isFolder = True )
+            if "plugin://" not in splitPath[0][0]:
+                # Add component
+                xbmcplugin.addDirectoryItem( int( sys.argv[ 1 ] ), "plugin://plugin.library.node.editor?ltype=%s&type=pathRule&actionPath=%s&rule=%d" % ( ltype, self.PATH, x + 1 ), xbmcgui.ListItem( label=LANGUAGE(30009) ), isFolder = True )
             # Manually edit path
             xbmcplugin.addDirectoryItem( int( sys.argv[ 1 ] ), "plugin://plugin.library.node.editor?ltype=%s&type=editPath&actionPath=" % ltype + self.PATH + "&value=" + rule[ 1 ], xbmcgui.ListItem( label=LANGUAGE(30010) ), isFolder = True )
+        xbmcplugin.setContent(int(sys.argv[1]), 'files')
         xbmcplugin.endOfDirectory(handle=int(sys.argv[1]))
 
     def _parse_argv( self ):
@@ -795,6 +799,7 @@ if ( __name__ == "__main__" ):
     if sys.argv[2] == '':
         xbmcplugin.addDirectoryItem( int( sys.argv[ 1 ] ), "plugin://plugin.library.node.editor?ltype=video", xbmcgui.ListItem( label=LANGUAGE(30091) ), isFolder=True )
         xbmcplugin.addDirectoryItem( int( sys.argv[ 1 ] ), "plugin://plugin.library.node.editor?ltype=music", xbmcgui.ListItem( label=LANGUAGE(30092) ), isFolder=True )
+        xbmcplugin.setContent(int(sys.argv[1]), 'files')
         xbmcplugin.endOfDirectory(handle=int(sys.argv[1]))
     else:
         params = dict( arg.split( "=" ) for arg in sys.argv[ 2 ][1:].split( "&" ) )
