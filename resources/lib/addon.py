@@ -479,7 +479,7 @@ class Main:
                     rulecount += 1
                 elif rule[ 0 ] == "match":
                     # 1 = value
-                    listitem = xbmcgui.ListItem( label="%s: %s" % ( LANGUAGE(30206), ATTRIB.translateMatch( rule[ 1 ] ) ) )
+                    listitem = xbmcgui.ListItem( label="%s: %s" % ( LANGUAGE(30206), self.ATTRIB.translateMatch( rule[ 1 ] ) ) )
                     action = "plugin://plugin.library.node.editor?ltype=%s&type=editRulesMatch&actionPath=%s" %( self.ltype, self.PATH )
                     hasGroup = True
                 listitem.addContextMenuItems( commands, replaceItems = True )

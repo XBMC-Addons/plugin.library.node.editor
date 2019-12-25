@@ -933,7 +933,7 @@ class RuleFunctions():
             self.createBrowseNode( content, "studios" )
             returnVal = self.browser( self.niceMatchName( match ) )
         elif match == "path":
-            returnVal = xbmcgui.Dialog().browse(0, self.niceMatchName( match ), ltype )
+            returnVal = xbmcgui.Dialog().browse(0, self.niceMatchName( match ), self.ltype )
         elif match == "set":
             self.createBrowseNode( content, "sets" )
             returnVal = self.browser( self.niceMatchName( match ) )
@@ -953,7 +953,7 @@ class RuleFunctions():
         except:
             print_exc()
         if returnVal is not None:
-            returnVal = returnVal.decode( "utf-8" )
+            returnVal = returnVal if PY3 else returnVal.decode("utf-8")
         self.writeUpdatedRule( actionPath, ruleNum, value = returnVal )
 
     def niceMatchName( self, match ):
