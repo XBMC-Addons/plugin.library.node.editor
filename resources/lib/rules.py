@@ -987,7 +987,7 @@ class RuleFunctions():
 
     def browser( self, title ):
         # Browser instance used by majority of browses
-        json_query = xbmc.executeJSONRPC('{ "jsonrpc": "2.0", "id": 0, "method": "Files.GetDirectory", "params": { "properties": ["title", "file", "thumbnail"], "directory": "library://%s/plugin.library.node.editor/temp.xml", "media": "files" } }' % self.ltype)
+        json_query = xbmc.executeJSONRPC('{ "jsonrpc": "2.0", "id": 0, "method": "Files.GetDirectory", "params": { "properties": ["title", "file", "genre", "studio", "director", "thumbnail"], "directory": "library://%s/plugin.library.node.editor/temp.xml", "media": "files" } }' % self.ltype)
         if not PY3:
             json_query = unicode(json_query, 'utf-8', errors='ignore')
         json_response = json.loads(json_query)
@@ -1001,11 +1001,29 @@ class RuleFunctions():
                 thumb = None
                 if item[ "thumbnail" ] is not "":
                     thumb = item[ "thumbnail" ]
-                listitem = xbmcgui.ListItem(label=item[ "label" ])
-                listitem.setArt({'icon': thumb, 'thumb': thumb})
-                listitem.setProperty( "thumbnail", thumb )
-                listings.append( listitem )
-                values.append( item[ "label" ] )
+
+                if "videodb://" not in item["file"]:
+                    if title.lower() == "genre":
+                        for genre in item["genre"]:
+                            label = genre
+                    elif title.lower() == "studios":
+                        for studio in item["studio"]:
+                            label = studio
+                    elif title.lower() == "director":
+                        for director in item["director"]:
+                            label = director
+                    else:
+                        label = item["label"]
+                else:
+                    label = item["label"]
+
+                if label not in values:
+                    listitem = xbmcgui.ListItem(label=label)
+                    if thumb:
+                        listitem.setArt({'icon': thumb, 'thumb': thumb})
+                        listitem.setProperty( "thumbnail", thumb )
+                    listings.append( listitem )
+                    values.append( label )
         # Show dialog
         w = ShowDialog( "DialogSelect.xml", CWD, listing=listings, windowtitle=title )
         w.doModal()
@@ -1018,12 +1036,13 @@ class RuleFunctions():
     def browserPlaylist( self, title ):
         # Browser instance used by playlists
         json_query = xbmc.executeJSONRPC('{ "jsonrpc": "2.0", "id": 0, "method": "Files.GetDirectory", "params": { "properties": ["title", "file", "thumbnail"], "directory": "special://%splaylists/", "media": "files" } }' % self.ltype)
-        json_query = unicode(json_query, 'utf-8', errors='ignore')
+        if not PY3:
+            json_query = unicode(json_query, 'utf-8', errors='ignore')
         json_response = json.loads(json_query)
         listings = []
         values = []
         # Add all directories returned by the json query
-        if json_response.has_key('result') and json_response['result'].has_key('files') and json_response['result']['files'] is not None:
+        if json_response.get('result') and json_response['result'].get('files') and json_response['result']['files'] is not None:
             for item in json_response['result']['files']:
                 if item[ "label" ] == "..":
                     continue
