@@ -40,5 +40,9 @@
 		<assets>
 			<icon>icon.png</icon>
 		</assets>
+		<news>
+			1.0.7 (30/12/2019)
+				- Python3 compatibility
+		</news>
 	</extension>
 </addon>
