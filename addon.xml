@@ -36,7 +36,6 @@
 		<platform>all</platform>
 		<license>GPL-2.0-only</license>
 		<forum>https://forum.kodi.tv/showthread.php?tid=224512</forum>
-		<email></email>
 		<source>https://github.com/XBMC-Addons/plugin.library.node.editor</source>
 		<assets>
 			<icon>icon.png</icon>
