@@ -952,8 +952,7 @@ class RuleFunctions():
             xbmcvfs.delete( os.path.join( xbmc.translatePath( "special://profile" if PY3 else "special://profile".decode('utf-8') ), "library", self.ltype, "plugin.library.node.editor", "temp.xml" ) )
         except:
             print_exc()
-        if returnVal is not None:
-            returnVal = returnVal if PY3 else returnVal.decode("utf-8")
+
         self.writeUpdatedRule( actionPath, ruleNum, value = returnVal )
 
     def niceMatchName( self, match ):
