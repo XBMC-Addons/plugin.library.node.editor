@@ -1,3 +1,6 @@
+1.0.8
+- Move node and change name fixes
+
 1.0.7
 - Python3 compatibility
 
