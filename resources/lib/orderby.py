@@ -78,7 +78,7 @@ class OrderByFunctions():
             listitem = xbmcgui.ListItem( label="%s" % ( translated[ 1 ][ 0 ] ) )
             action = "plugin://plugin.library.node.editor?ltype=%s&type=editOrderByDirection&actionPath=" % self.ltype + actionPath + "&default=" + translated[1][1]
             xbmcplugin.addDirectoryItem( int(sys.argv[ 1 ]), action, listitem, isFolder=False )
-            #xbmcplugin.setContent(int(sys.argv[1]), 'files')
+            xbmcplugin.setContent(int(sys.argv[1]), 'files')
             xbmcplugin.endOfDirectory(int(sys.argv[1]))
         except:
             print_exc()
