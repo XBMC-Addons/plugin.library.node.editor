@@ -1,3 +1,6 @@
+1.0.9 (2/1/2020)
+- Fixes plugin listings
+
 1.0.8
 - Move node and change name fixes
 
