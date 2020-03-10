@@ -2,16 +2,11 @@
 import os, sys, shutil
 import xbmc, xbmcaddon, xbmcplugin, xbmcgui, xbmcvfs
 import xml.etree.ElementTree as xmltree
-from traceback import print_exc
 import json
+from traceback import print_exc
+from urllib.parse import quote, unquote
 
 from resources.lib.common import *
-
-if PY3:
-    from urllib.parse import quote, unquote
-else:
-    from urllib import quote, unquote
-
 
 class RuleFunctions():
     def __init__(self, ltype):
@@ -240,7 +235,7 @@ class RuleFunctions():
                 type = xbmcgui.INPUT_ALPHANUM
             returnVal = xbmcgui.Dialog().input( LANGUAGE( 30307 ), curValue, type=type )
             if returnVal != "":
-                self.writeUpdatedRule( unquote(actionPath), ruleNum, value=returnVal if PY3 else returnVal.decode( "utf-8" ) )
+                self.writeUpdatedRule( unquote(actionPath), ruleNum, value=returnVal )
         except:
             print_exc()
 
@@ -950,7 +945,7 @@ class RuleFunctions():
             returnVal = self.browser( self.niceMatchName( match ) )
         try:
             # Delete any fake node
-            xbmcvfs.delete( os.path.join( xbmc.translatePath( "special://profile" if PY3 else "special://profile".decode('utf-8') ), "library", self.ltype, "plugin.library.node.editor", "temp.xml" ) )
+            xbmcvfs.delete( os.path.join( xbmc.translatePath( "special://profile" ), "library", self.ltype, "plugin.library.node.editor", "temp.xml" ) )
         except:
             print_exc()
         self.writeUpdatedRule( actionPath, ruleNum, value = returnVal )
@@ -966,7 +961,7 @@ class RuleFunctions():
 
     def createBrowseNode( self, content, grouping = None ):
         # This function creates a fake node which we'll use for browsing
-        targetDir = os.path.join( xbmc.translatePath( "special://profile" if PY3 else "special://profile".decode('utf-8') ), "library", self.ltype, "plugin.library.node.editor" )
+        targetDir = os.path.join( xbmc.translatePath( "special://profile" ), "library", self.ltype, "plugin.library.node.editor" )
         if not os.path.exists( targetDir ):
             xbmcvfs.mkdirs( targetDir )
         # Create a new etree
@@ -987,8 +982,6 @@ class RuleFunctions():
     def browser( self, title ):
         # Browser instance used by majority of browses
         json_query = xbmc.executeJSONRPC('{ "jsonrpc": "2.0", "id": 0, "method": "Files.GetDirectory", "params": { "properties": ["title", "file", "genre", "studio", "director", "thumbnail"], "directory": "library://%s/plugin.library.node.editor/temp.xml", "media": "files" } }' % self.ltype)
-        if not PY3:
-            json_query = unicode(json_query, 'utf-8', errors='ignore')
         json_response = json.loads(json_query)
         listings = []
         values = []
@@ -1035,8 +1028,6 @@ class RuleFunctions():
     def browserPlaylist( self, title ):
         # Browser instance used by playlists
         json_query = xbmc.executeJSONRPC('{ "jsonrpc": "2.0", "id": 0, "method": "Files.GetDirectory", "params": { "properties": ["title", "file", "thumbnail"], "directory": "special://%splaylists/", "media": "files" } }' % self.ltype)
-        if not PY3:
-            json_query = unicode(json_query, 'utf-8', errors='ignore')
         json_response = json.loads(json_query)
         listings = []
         values = []

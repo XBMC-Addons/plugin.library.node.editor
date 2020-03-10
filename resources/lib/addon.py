@@ -3,16 +3,9 @@ import os, sys, shutil, unicodedata, re, types
 
 from resources.lib.common import *
 
-PY3 = sys.version_info.major >= 3
-
-if PY3:
-    from html.entities import name2codepoint
-    from urllib.parse import parse_qs
-    from urllib.parse import quote, unquote
-else:
-    from htmlentitydefs import name2codepoint
-    from urlparse import parse_qs
-    from urllib import quote, unquote
+from html.entities import name2codepoint
+from urllib.parse import parse_qs
+from urllib.parse import quote, unquote
 
 import xbmc, xbmcplugin, xbmcgui, xbmcvfs
 import xml.etree.ElementTree as xmltree
@@ -51,11 +44,11 @@ class Main:
         self.PATHRULE = pathrule
         self.ORDERBY = orderby
         # If there are no custom library nodes in the profile directory, copy them from the Kodi install
-        targetDir = os.path.join( xbmc.translatePath( "special://profile" if PY3 else "special://profile".decode('utf-8') ), "library", ltype )
+        targetDir = os.path.join( xbmc.translatePath( "special://profile" ), "library", ltype )
         if True:
             if not os.path.exists( targetDir ):
                 xbmcvfs.mkdirs( targetDir )
-                originDir = os.path.join( xbmc.translatePath( "special://xbmc" if PY3 else "special://xbmc".decode( "utf-8" ) ), "system", "library", ltype )
+                originDir = os.path.join( xbmc.translatePath( "special://xbmc" ), "system", "library", ltype )
                 dirs, files = xbmcvfs.listdir( originDir )
                 self.copyNode( dirs, files, targetDir, originDir )
         else:
@@ -98,7 +91,7 @@ class Main:
                 keyboard = xbmc.Keyboard( label, LANGUAGE( 30300 ), False )
                 keyboard.doModal()
                 if ( keyboard.isConfirmed() ):
-                    newlabel = keyboard.getText() if PY3 else keyboard.getText().decode( "utf-8" )
+                    newlabel = keyboard.getText()
                     if newlabel != "" and newlabel != label:
                         # We've got a new label, update the xml file
                         self.changeViewElement( self.PARAMS[ "actionPath" ], "label", newlabel )
@@ -139,7 +132,7 @@ class Main:
                 keyboard = xbmc.Keyboard( "", LANGUAGE( 30316 ), False )
                 keyboard.doModal()
                 if ( keyboard.isConfirmed() ):
-                    newView = keyboard.getText() if PY3 else keyboard.getText().decode( "utf-8" )
+                    newView = keyboard.getText()
                     if newView != "":
                         # Ensure filename is unique
                         filename = self.slugify( newView.lower().replace( " ", "" ) )
@@ -168,7 +161,7 @@ class Main:
                 keyboard = xbmc.Keyboard( "", LANGUAGE( 30303 ), False )
                 keyboard.doModal()
                 if ( keyboard.isConfirmed() ):
-                    newNode = keyboard.getText() if PY3 else keyboard.getText().decode( "utf8" )
+                    newNode = keyboard.getText()
                     if newNode == "":
                         return
                     # Ensure foldername is unique
@@ -196,7 +189,7 @@ class Main:
                     if selected != -1 and selected != 0:
                         try:
                             # Copy those defaults across
-                            originDir = os.path.join( xbmc.translatePath( "special://xbmc" if PY3 else "special://xbmc".decode( "utf-8" ) ), "system", "library", self.ltype, defaultValues[ selected ] )
+                            originDir = os.path.join( xbmc.translatePath( "special://xbmc" ), "system", "library", self.ltype, defaultValues[ selected ] )
                             dirs, files = xbmcvfs.listdir( originDir )
                             for file in files:
                                 if file != "index.xml":
@@ -519,12 +512,12 @@ class Main:
         try:
             p = parse_qs(sys.argv[2][1:])
             for i in p.keys():
-                p[i] = p[i][0] if PY3 else p[i][0].decode( "utf-8" )
+                p[i] = p[i][0]
             self.PARAMS = p
         except:
             p = parse_qs(sys.argv[1])
             for i in p.keys():
-                p[i] = p[i][0] if PY3 else p[i][0].decode( "utf-8" )
+                p[i] = p[i][0]
             self.PARAMS = p
         if "path" in self.PARAMS:
             self.PATH = self.PARAMS[ "path" ]
@@ -541,7 +534,7 @@ class Main:
                 # Look for a 'content'
                 content = root.find( "content" )
                 if content is not None:
-                    returnVal.append( ( "content", content.text if PY3 else content.text.decode( "utf-8" ) ) )
+                    returnVal.append( ( "content", content.text ) )
                 # Look for an 'order'
                 order = root.find( "order" )
                 if order is not None:
@@ -608,7 +601,7 @@ class Main:
         for dir in dirs:
             self.parseNode( os.path.join( targetDir, dir ), nodes )
         for file in files:
-            self.parseItem( os.path.join( targetDir, file if PY3 else file.decode( "utf-8" ) ), nodes )
+            self.parseItem( os.path.join( targetDir, file ), nodes )
 
     def parseNode( self, node, nodes ):
         # If the folder we've been passed contains an index.xml, send that file to be processed
@@ -646,7 +639,7 @@ class Main:
                 icon = ""
             # Add it to our list of nodes
             if isFolder:
-                nodes[ int( index ) ] = [ label, icon, quote( origFolder if PY3 else origFolder.decode( "utf-8" ) ), "folder", origIndex ]
+                nodes[ int( index ) ] = [ label, icon, quote( origFolder ), "folder", origIndex ]
             else:
                 nodes[ int( index ) ] = [ label, icon, file, "item", origIndex ]
         except:
@@ -777,14 +770,8 @@ class Main:
         # Handle integers
         if convertInteger and text.isdigit():
             text = "NUM-" + text
-            # text to unicode
-        if not PY3 and type(text) != types.UnicodeType:
-            text = unicode(text, 'utf-8', 'ignore')
         # decode unicode ( ??? = Ying Shi Ma)
         text = unidecode(text)
-        # text back to unicode
-        if not PY3 and type(text) != types.UnicodeType:
-            text = unicode(text, 'utf-8', 'ignore')
         # character entity reference
         if entities:
             text = CHAR_ENTITY_REXP.sub(lambda m: unichr(name2codepoint[m.group(1)]), text)
@@ -818,8 +805,6 @@ class Main:
 
 def getVideoLibraryLType():
     json_query = xbmc.executeJSONRPC('{ "jsonrpc": "2.0", "id": 0, "method": "Settings.GetSettingValue", "params": {"setting": "myvideos.flatten"}}')
-    if not PY3:
-        json_query = unicode(json_query, 'utf-8', errors='ignore')
     json_response = json.loads(json_query)
 
     if json_response.get('result') and json_response['result'].get('value'):

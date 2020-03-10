@@ -3,13 +3,9 @@ import os, sys
 import xbmc, xbmcaddon, xbmcplugin, xbmcgui, xbmcvfs
 import xml.etree.ElementTree as xmltree
 from traceback import print_exc
+from urllib.parse import unquote
 
 from resources.lib.common import *
-
-if PY3:
-    from urllib.parse import unquote
-else:
-    from urllib import unquote
 
 class OrderByFunctions():
     def __init__(self, ltype):

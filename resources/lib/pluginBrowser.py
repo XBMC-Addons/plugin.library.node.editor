@@ -26,8 +26,6 @@ def getPluginPath( ltype, location = None ):
     dialog.create( ADDONNAME, LANGUAGE( 30410 ) )
 
     json_query = xbmc.executeJSONRPC('{ "jsonrpc": "2.0", "id": 0, "method": "Files.GetDirectory", "params": { "properties": ["title", "file", "thumbnail", "episode", "showtitle", "season", "album", "artist", "imdbnumber", "firstaired", "mpaa", "trailer", "studio", "art"], "directory": "' + location + '", "media": "files" } }')
-    if not PY3:
-        json_query = unicode(json_query, 'utf-8', errors='ignore')
     json_response = json.loads(json_query)
 
     # Add all directories returned by the json query

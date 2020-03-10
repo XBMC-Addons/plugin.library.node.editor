@@ -4,14 +4,10 @@ import xbmc, xbmcaddon, xbmcplugin, xbmcgui, xbmcvfs
 import xml.etree.ElementTree as xmltree
 import json
 from traceback import print_exc
+from urllib.parse import quote, unquote
 
 from resources.lib.common import *
 from resources.lib import pluginBrowser
-
-if PY3:
-    from urllib.parse import quote, unquote
-else:
-    from urllib import quote, unquote
 
 class ViewAttribFunctions():
     def __init__(self, ltype):
@@ -140,12 +136,12 @@ class ViewAttribFunctions():
     def editPath( self, actionPath, curValue ):
         returnVal = xbmcgui.Dialog().input( LANGUAGE( 30312 ), curValue, type=xbmcgui.INPUT_ALPHANUM )
         if returnVal != "":
-            self.writeUpdatedRule( actionPath, "path", returnVal if PY3 else returnVal.decode( "utf-8" ) )
+            self.writeUpdatedRule( actionPath, "path", returnVal )
 
     def editIcon( self, actionPath, curValue ):
         returnVal = xbmcgui.Dialog().input( LANGUAGE( 30313 ), curValue, type=xbmcgui.INPUT_ALPHANUM )
         if returnVal != "":
-            self.writeUpdatedRule( actionPath, "icon", returnVal if PY3 else returnVal.decode( "utf-8" ) )
+            self.writeUpdatedRule( actionPath, "icon", returnVal )
 
     def browseIcon( self, actionPath ):
         returnVal = xbmcgui.Dialog().browse( 2, LANGUAGE( 30313 ), "files", useThumbs = True )
@@ -204,23 +200,23 @@ class ViewAttribFunctions():
                         if x == 0:
                             elem.text = self.joinPath( component )
                         elif x == 1:
-                            elem.text += "?%s=%s" %( component[ 0 ], six_decoder(quote(component[1] if PY3 else component[1].encode("utf-8"))) )
+                            elem.text += "?%s=%s" %( component[ 0 ], quote(component[1]) )
                         else:
-                            elem.text += "&%s=%s" %( component[ 0 ], six_decoder(quote(component[1] if PY3 else component[1].encode("utf-8"))) )
+                            elem.text += "&%s=%s" %( component[ 0 ], quote(component[1]) )
                     else:
                         # Add our new component
                         if x == 0:
                             elem.text = "%s/" %( newComponent[ 1 ] )
                         elif x == 1:
-                            elem.text += "?%s=%s" %( newComponent[ 1 ], six_decoder(quote(newComponent[2] if PY3 else newComponent[2].encode("utf-8"))) )
+                            elem.text += "?%s=%s" %( newComponent[ 1 ], quote(newComponent[2]) )
                         else:
-                            elem.text += "&%s=%s" %( newComponent[ 1 ], six_decoder(quote(newComponent[2] if PY3 else newComponent[2].encode("utf-8"))) )
+                            elem.text += "&%s=%s" %( newComponent[ 1 ], quote(newComponent[2]) )
                 # Check that we added it
                 if x < newComponent[ 0 ]:
                     if newComponent[ 0 ] == 1:
-                        elem.text += "?%s=%s" %( newComponent[ 1 ], six_decoder(quote(newComponent[2] if PY3 else newComponent[2].encode( "utf-8" ))) )
+                        elem.text += "?%s=%s" %( newComponent[ 1 ], quote(newComponent[2]) )
                     else:
-                        elem.text += "&%s=%s" %( newComponent[ 1 ], six_decoder(quote(newComponent[2] if PY3 else newComponent[2].encode( "utf-8" ))) )
+                        elem.text += "&%s=%s" %( newComponent[ 1 ], quote(newComponent[2]) )
             # Save the file
             self.indent( root )
             tree.write( unquote(actionPath), encoding="UTF-8" )
@@ -247,14 +243,13 @@ class ViewAttribFunctions():
             addedQ = False
             for x, component in enumerate( splitPath ):
                 if x != rule:
-                    # Transfer this component to the new pathsix_decoder
                     if x == 0:
                         elem.text = self.joinPath( component )
                     elif not addedQ:
-                        elem.text += "?%s=%s" %( component[ 0 ], six_decoder(quote(component[1] if PY3 else component[1].encode("utf-8"))) )
+                        elem.text += "?%s=%s" %( component[ 0 ], quote(component[1]) )
                         addedQ = True
                     else:
-                        elem.text += "&%s=%s" %( component[ 0 ], six_decoder(quote(component[1] if PY3 else component[1].encode( "utf-8"))) )
+                        elem.text += "&%s=%s" %( component[ 0 ], quote(component[1]) )
             # Save the file
             self.indent( root )
             tree.write( actionPath, encoding="UTF-8" )
@@ -289,7 +284,7 @@ class ViewAttribFunctions():
         if len( split ) != 1 and split[ 1 ].startswith( "?" ):
             for component in split[ 1 ][ 1: ].split( "&" ):
                 componentSplit = component.split( "=" )
-                splitPath.append( ( componentSplit[ 0 ], six_decoder(unquote( componentSplit[1] if PY3 else componentSplit[1].encode( "utf-8" ) )) ) )
+                splitPath.append( ( componentSplit[ 0 ], unquote( componentSplit[1]) ) )
 
         return splitPath
 

@@ -2,15 +2,11 @@
 import os, sys, shutil
 import xbmc, xbmcaddon, xbmcplugin, xbmcgui, xbmcvfs
 import xml.etree.ElementTree as xmltree
-from traceback import print_exc
 import json
+from traceback import print_exc
+from urllib.parse import quote, unquote
 
 from resources.lib.common import *
-
-if PY3:
-    from urllib.parse import quote, unquote
-else:
-    from urllib import quote, unquote
 
 class PathRuleFunctions():
     def __init__(self, ltype):
@@ -32,7 +28,7 @@ class PathRuleFunctions():
     def translateComponent( self, component, splitPath ):
         if component[ 0 ] is None:
             return splitPath[ 0 ]
-        if (not PY3 and unicode( component[0], "utf-8" ).isnumeric()) or (PY3 and component[0].isdigit()):
+        if component[0].isdigit():
             string = LANGUAGE( int( component[ 0 ] ) )
             if string != "": return string
             return xbmc.getLocalizedString( int( component[ 0 ] ) )
@@ -52,8 +48,6 @@ class PathRuleFunctions():
             return splitPath[ ruleNum ][ 1 ]
 
         json_query = xbmc.executeJSONRPC('{ "jsonrpc": "2.0", "id": 0, "method": "Files.GetDirectory", "params": { "properties": ["title"], "directory": "%s", "media": "files" } }' % rule[ 3 ] )
-        if not PY3:
-            json_query = unicode(json_query, 'utf-8', errors='ignore')
         json_response = json.loads(json_query)
         listings = []
         values = []
@@ -238,7 +232,7 @@ class PathRuleFunctions():
                 type = xbmcgui.INPUT_NUMERIC
             returnVal = xbmcgui.Dialog().input( LANGUAGE( 30307 ), splitPath[ ruleNum ][ 1 ], type=type )
             if returnVal != "":
-                self.ATTRIB.writeUpdatedPath( actionPath, ( ruleNum, splitPath[ ruleNum ][ 0 ], six_decoder(returnVal) ) )
+                self.ATTRIB.writeUpdatedPath( actionPath, ( ruleNum, splitPath[ ruleNum ][ 0 ], returnVal ) )
 
 
     def browse( self, actionPath, ruleNum ):
@@ -263,8 +257,6 @@ class PathRuleFunctions():
         browsePath = self.getBrowsePath( splitPath, rule[ 3 ], ruleNum )
 
         json_query = xbmc.executeJSONRPC('{ "jsonrpc": "2.0", "id": 0, "method": "Files.GetDirectory", "params": { "properties": ["title", "file", "thumbnail"], "directory": "%s", "media": "files" } }' % browsePath )
-        if not PY3:
-            json_query = unicode(json_query, 'utf-8', errors='ignore')
         json_response = json.loads(json_query)
         listings = []
         values = []
@@ -320,10 +312,10 @@ class PathRuleFunctions():
                 if x == 0:
                     returnText = newBase
                 elif not addedQ:
-                    returnText += "?%s=%s" %( component[ 0 ], six_decoder(quote(component[1] if PY3 else component[1].encode( "utf-8" ))) )
+                    returnText += "?%s=%s" %( component[ 0 ], quote(component[1]) )
                     addedQ = True
                 else:
-                    returnText += "&%s=%s" %( component[ 0 ], six_decoder(quote(component[1] if PY3 else component[1].encode( "utf-8" ))) )
+                    returnText += "&%s=%s" %( component[ 0 ], quote(component[1]) )
         return returnText
 
     # in-place prettyprint formatter
