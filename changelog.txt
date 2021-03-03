@@ -1,3 +1,6 @@
+2.0.1 (03/3/2021)
+- xbmc.translatePath -> xbmcvfs.translatePath
+
 1.0.11 (7/1/2020)
 - Fixes parent nodes
 
