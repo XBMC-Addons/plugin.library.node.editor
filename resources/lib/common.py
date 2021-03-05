@@ -1,7 +1,7 @@
 
 import sys
 import os
-import xbmc, xbmccvfs, xbmcaddon
+import xbmc, xbmcvfs, xbmcaddon
 
 ADDON        = xbmcaddon.Addon()
 ADDONID      = ADDON.getAddonInfo('id')
