@@ -1,3 +1,6 @@
+2.0.4 (07/3/2021)
+- Add new music library fields for v19
+
 2.0.2 / 2.0.3 (05/3/2021)
 - Fix wrong method import
 
