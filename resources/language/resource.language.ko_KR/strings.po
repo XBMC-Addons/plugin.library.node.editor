@@ -16,6 +16,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgctxt "Addon Summary"
+msgid "Manage custom library nodes."
+msgstr "사용자 라이브러리 노드 관리자"
+
+msgctxt "Addon Description"
+msgid "Create and edit custom library nodes."
+msgstr "사용자 라이브러리 노드를 생성하고 편집합니다."
+
 msgctxt "#30000"
 msgid "Add content..."
 msgstr "콘텐츠 추가..."
