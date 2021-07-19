@@ -17,6 +17,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.6.1\n"
 
+msgctxt "Addon Summary"
+msgid "Manage custom library nodes."
+msgstr "Beheer aangepaste bibliotheek nodes. "
+
+msgctxt "Addon Description"
+msgid "Create and edit custom library nodes."
+msgstr "Creëer en wijzig aangepaste bibliotheek nodes."
+
 msgctxt "#30000"
 msgid "Add content..."
 msgstr "Toevoegen inhoud..."
