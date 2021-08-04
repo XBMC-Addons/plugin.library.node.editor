@@ -28,10 +28,11 @@
         <summary lang="it_IT">Gestisci nodi libreria personalizzati</summary>
         <summary lang="ko_KR">사용자 라이브러리 노드 관리자</summary>
         <summary lang="lt_LT">Tvarkykite savus bibliotekos mazgus.</summary>
-        <summary lang="nl_NL">Beheer aangepaste bibliotheek nodes. </summary>
+        <summary lang="nl_NL">Beheer aangepaste bibliotheek nodes.</summary>
         <summary lang="pl_PL">Zarządzanie niestandardowymi węzłami biblioteki.</summary>
         <summary lang="pt_BR">Gerenciar nós customizados da biblioteca</summary>
         <summary lang="ro_RO">Administrați noduri mediatecă personalizate</summary>
+        <summary lang="ru_RU">Управление узлами пользовательских медиатек.</summary>
         <description lang="de_DE">Benutzerdefinierte Bibliotheksknoten erstellen und bearbeiten.</description>
         <description lang="en_GB">Create and edit custom library nodes.</description>
         <description lang="en_NZ">Create and edit custom library nodes.</description>
@@ -44,5 +45,6 @@
         <description lang="nl_NL">Creëer en wijzig aangepaste bibliotheek nodes.</description>
         <description lang="pl_PL">Tworzenie i edytowanie niestandardowych węzłów biblioteki.</description>
         <description lang="pt_BR">Crie e edite nós customizados na biblioteca</description>
+        <description lang="ru_RU">Создание и редактирование пользовательских узлов медиатеки.</description>
     </extension>
 </addon>
