@@ -5,17 +5,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XBMC Addons\n"
-"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-05-23 13:29+0000\n"
-"Last-Translator: Jakub Fabijan <animatorzpolski@gmail.com>\n"
+"PO-Revision-Date: 2021-08-04 13:29+0000\n"
+"Last-Translator: Christian Gade <gade@kodi.tv>\n"
 "Language-Team: Esperanto <https://kodi.weblate.cloud/projects/kodi-add-ons-program/plugin-library-node-editor/eo/>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.6.2\n"
+"X-Generator: Weblate 4.7.2\n"
 
 msgctxt "Addon Summary"
 msgid "Manage custom library nodes."
@@ -34,7 +34,6 @@ msgctxt "#30001"
 msgid "Add path..."
 msgstr "Aldoni dosierindikon..."
 
-#, fuzzy
 msgctxt "#30002"
 msgid "Add order..."
 msgstr "Aldoni ordigon..."
@@ -59,7 +58,6 @@ msgctxt "#30007"
 msgid "New parent node..."
 msgstr "Nova parenta nodo..."
 
-#, fuzzy
 msgctxt "#30008"
 msgid "Reset library nodes to default..."
 msgstr "Restaŭri nodojn de biblioteko al defaŭlto..."
@@ -72,7 +70,6 @@ msgctxt "#30010"
 msgid "Manually edit..."
 msgstr "Mane redakti..."
 
-#, fuzzy
 msgctxt "#30091"
 msgid "Video Library"
 msgstr "Videaĵa biblioteko"
@@ -121,7 +118,6 @@ msgctxt "#30201"
 msgid "Order"
 msgstr "Ordo"
 
-#, fuzzy
 msgctxt "#30202"
 msgid "Grouping"
 msgstr "Grupigado"
@@ -254,7 +250,6 @@ msgctxt "#30408"
 msgid "Custom property..."
 msgstr "Propra atribuo..."
 
-#, fuzzy
 msgctxt "#30409"
 msgid "No options to select from were found"
 msgstr "Neniu elekteblaj opcioj trovitaj"
@@ -319,7 +314,6 @@ msgctxt "#30512"
 msgid "Album artists only"
 msgstr ""
 
-#, fuzzy
 msgctxt "#30513"
 msgid "Show singles"
 msgstr "Montri singlaĵojn"
