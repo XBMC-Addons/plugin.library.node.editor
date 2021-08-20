@@ -26,13 +26,14 @@
         <summary lang="fr_CA">Gérer des nœuds de médiathèque personnalisés.</summary>
         <summary lang="fr_FR">Gére des nœuds de médiathèque personnalisés.</summary>
         <summary lang="it_IT">Gestisci nodi libreria personalizzati</summary>
-        <summary lang="ko_KR">사용자 라이브러리 노드 관리자</summary>
+        <summary lang="ko_KR">사용자 정의 라이브러리 노드를 관리합니다.</summary>
         <summary lang="lt_LT">Tvarkykite savus bibliotekos mazgus.</summary>
         <summary lang="nl_NL">Beheer aangepaste bibliotheek nodes.</summary>
         <summary lang="pl_PL">Zarządzanie niestandardowymi węzłami biblioteki.</summary>
         <summary lang="pt_BR">Gerenciar nós customizados da biblioteca</summary>
         <summary lang="ro_RO">Administrați noduri mediatecă personalizate</summary>
         <summary lang="ru_RU">Управление узлами пользовательских медиатек.</summary>
+        <summary lang="vi_VN">Quản lý các nút thư viện tùy chỉnh.</summary>
         <description lang="de_DE">Benutzerdefinierte Bibliotheksknoten erstellen und bearbeiten.</description>
         <description lang="en_GB">Create and edit custom library nodes.</description>
         <description lang="en_NZ">Create and edit custom library nodes.</description>
