@@ -19,6 +19,7 @@
             2.0.4 (07/3/2021)
             - Add new music library fields for v19
         </news>
+        <summary lang="da_DK">Administrer brugerdefinerede biblioteksnoder.</summary>
         <summary lang="de_DE">Benutzerdefinierte Bibliotheksknoten verwalten.</summary>
         <summary lang="en_GB">Manage custom library nodes.</summary>
         <summary lang="en_NZ">Manage custom library nodes.</summary>
@@ -34,6 +35,8 @@
         <summary lang="ro_RO">Administrați noduri mediatecă personalizate</summary>
         <summary lang="ru_RU">Управление узлами пользовательских медиатек.</summary>
         <summary lang="vi_VN">Quản lý các nút thư viện tùy chỉnh.</summary>
+        <summary lang="zh_CN">管理自定义资料库节点。</summary>
+        <description lang="da_DK">Opret og rediger brugerdefinerede biblioteksnoder.</description>
         <description lang="de_DE">Benutzerdefinierte Bibliotheksknoten erstellen und bearbeiten.</description>
         <description lang="en_GB">Create and edit custom library nodes.</description>
         <description lang="en_NZ">Create and edit custom library nodes.</description>
@@ -47,5 +50,6 @@
         <description lang="pl_PL">Tworzenie i edytowanie niestandardowych węzłów biblioteki.</description>
         <description lang="pt_BR">Crie e edite nós customizados na biblioteca</description>
         <description lang="ru_RU">Создание и редактирование пользовательских узлов медиатеки.</description>
+        <description lang="zh_CN">创建和编辑自定义资料库节点。</description>
     </extension>
 </addon>
