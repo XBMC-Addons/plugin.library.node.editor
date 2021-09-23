@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: XBMC Addons\n"
-"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-05-07 12:40+0000\n"
+"PO-Revision-Date: 2021-09-23 07:50+0000\n"
 "Last-Translator: Christian Gade <gade@kodi.tv>\n"
 "Language-Team: Danish <https://kodi.weblate.cloud/projects/kodi-add-ons-program/plugin-library-node-editor/da_dk/>\n"
 "Language: da_DK\n"
@@ -15,15 +15,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.6.1\n"
+"X-Generator: Weblate 4.8\n"
 
 msgctxt "Addon Summary"
 msgid "Manage custom library nodes."
-msgstr ""
+msgstr "Administrer brugerdefinerede biblioteksnoder."
 
 msgctxt "Addon Description"
 msgid "Create and edit custom library nodes."
-msgstr ""
+msgstr "Opret og rediger brugerdefinerede biblioteksnoder."
 
 # Menu items
 msgctxt "#30000"
@@ -52,15 +52,15 @@ msgstr "Tilføj regel..."
 
 msgctxt "#30006"
 msgid "New node..."
-msgstr ""
+msgstr "Ny node..."
 
 msgctxt "#30007"
 msgid "New parent node..."
-msgstr ""
+msgstr "Ny overordnet node..."
 
 msgctxt "#30008"
 msgid "Reset library nodes to default..."
-msgstr ""
+msgstr "Nulstil biblioteksnoder til standard..."
 
 msgctxt "#30009"
 msgid "Add component..."
@@ -96,7 +96,7 @@ msgstr "Se efter ikon"
 
 msgctxt "#30104"
 msgid "Move node"
-msgstr ""
+msgstr "Flyt node"
 
 msgctxt "#30105"
 msgid "Edit visibility"
@@ -108,7 +108,7 @@ msgstr "Tilføj til hovedmenu"
 
 msgctxt "#30107"
 msgid "Browse for value"
-msgstr ""
+msgstr "Søg efter værdi"
 
 msgctxt "#30200"
 msgid "Content"
@@ -136,31 +136,31 @@ msgstr "Regel"
 
 msgctxt "#30206"
 msgid "Match"
-msgstr ""
+msgstr "Match"
 
 msgctxt "#30300"
 msgid "Set name"
-msgstr ""
+msgstr "Indstil navn"
 
 msgctxt "#30301"
 msgid "Set visibility condition"
-msgstr ""
+msgstr "Indstil synlighed"
 
 msgctxt "#30302"
 msgid "Set order index"
-msgstr ""
+msgstr "Indstil indeks for rækkefølge"
 
 msgctxt "#30303"
 msgid "Name of new parent node"
-msgstr ""
+msgstr "Navn på ny overordnet node"
 
 msgctxt "#30304"
 msgid "Start with defaults"
-msgstr ""
+msgstr "Start med standarder"
 
 msgctxt "#30305"
 msgid "Field"
-msgstr ""
+msgstr "Felt"
 
 msgctxt "#30306"
 msgid "Operator"
@@ -168,11 +168,11 @@ msgstr ""
 
 msgctxt "#30307"
 msgid "Value"
-msgstr ""
+msgstr "Værdi"
 
 msgctxt "#30308"
 msgid "Content type"
-msgstr ""
+msgstr "Indholdstype"
 
 msgctxt "#30309"
 msgid "Content"
@@ -204,11 +204,11 @@ msgstr "Retning"
 
 msgctxt "#30316"
 msgid "Name of new node"
-msgstr ""
+msgstr "Navn på ny node"
 
 msgctxt "#30317"
 msgid "Retrieving values..."
-msgstr ""
+msgstr "Henter værdier..."
 
 msgctxt "#30318"
 msgid "Property"
