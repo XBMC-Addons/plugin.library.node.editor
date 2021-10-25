@@ -34,6 +34,7 @@
         <summary lang="pt_BR">Gerenciar nós customizados da biblioteca</summary>
         <summary lang="ro_RO">Administrați noduri mediatecă personalizate</summary>
         <summary lang="ru_RU">Управление узлами пользовательских медиатек.</summary>
+        <summary lang="sv_SE">Hantera anpassade biblioteksnoder.</summary>
         <summary lang="vi_VN">Quản lý các nút thư viện tùy chỉnh.</summary>
         <summary lang="zh_CN">管理自定义资料库节点。</summary>
         <description lang="da_DK">Opret og rediger brugerdefinerede biblioteksnoder.</description>
@@ -50,6 +51,7 @@
         <description lang="pl_PL">Tworzenie i edytowanie niestandardowych węzłów biblioteki.</description>
         <description lang="pt_BR">Crie e edite nós customizados na biblioteca</description>
         <description lang="ru_RU">Создание и редактирование пользовательских узлов медиатеки.</description>
+        <description lang="sv_SE">Skapa och redigera anpassade biblioteksnoder.</description>
         <description lang="zh_CN">创建和编辑自定义资料库节点。</description>
     </extension>
 </addon>
