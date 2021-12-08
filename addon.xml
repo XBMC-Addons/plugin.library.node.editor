@@ -31,7 +31,7 @@
         <summary lang="lt_LT">Tvarkykite savus bibliotekos mazgus.</summary>
         <summary lang="nl_NL">Beheer aangepaste bibliotheek nodes.</summary>
         <summary lang="pl_PL">Zarządzanie niestandardowymi węzłami biblioteki.</summary>
-        <summary lang="pt_BR">Gerenciar nós customizados da biblioteca</summary>
+        <summary lang="pt_BR">Gerenciar nós customizados da biblioteca.</summary>
         <summary lang="ro_RO">Administrați noduri mediatecă personalizate</summary>
         <summary lang="ru_RU">Управление узлами пользовательских медиатек.</summary>
         <summary lang="sv_SE">Hantera anpassade biblioteksnoder.</summary>
@@ -49,7 +49,7 @@
         <description lang="lt_LT">Sukurkite ir keiskite savus bibliotekos mazgus.</description>
         <description lang="nl_NL">Creëer en wijzig aangepaste bibliotheek nodes.</description>
         <description lang="pl_PL">Tworzenie i edytowanie niestandardowych węzłów biblioteki.</description>
-        <description lang="pt_BR">Crie e edite nós customizados na biblioteca</description>
+        <description lang="pt_BR">Crie e edite nós customizados na biblioteca.</description>
         <description lang="ru_RU">Создание и редактирование пользовательских узлов медиатеки.</description>
         <description lang="sv_SE">Skapa och redigera anpassade biblioteksnoder.</description>
         <description lang="zh_CN">创建和编辑自定义资料库节点。</description>
