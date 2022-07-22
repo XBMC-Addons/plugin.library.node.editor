@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: XBMC Addons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-07-08 10:14+0000\n"
+"PO-Revision-Date: 2022-07-22 16:14+0000\n"
 "Last-Translator: Oskari Lavinto <olavinto@protonmail.com>\n"
 "Language-Team: Finnish <https://kodi.weblate.cloud/projects/kodi-add-ons-program/plugin-library-node-editor/fi_fi/>\n"
 "Language: fi_FI\n"
@@ -19,56 +19,56 @@ msgstr ""
 
 msgctxt "Addon Summary"
 msgid "Manage custom library nodes."
-msgstr ""
+msgstr "Muokkaa omia kirjaston solmuja."
 
 msgctxt "Addon Description"
 msgid "Create and edit custom library nodes."
-msgstr ""
+msgstr "Luo ja muokkaa omia kirjaston solmuja."
 
 # Menu items
 msgctxt "#30000"
 msgid "Add content..."
-msgstr ""
+msgstr "Lisää sisältö..."
 
 msgctxt "#30001"
 msgid "Add path..."
-msgstr ""
+msgstr "Lisää sijainti..."
 
 msgctxt "#30002"
 msgid "Add order..."
-msgstr ""
+msgstr "Lisää järjestely..."
 
 msgctxt "#30003"
 msgid "Add limit..."
-msgstr ""
+msgstr "Lisää rajoitus..."
 
 msgctxt "#30004"
 msgid "Add grouping..."
-msgstr ""
+msgstr "Lisää ryhmittely..."
 
 msgctxt "#30005"
 msgid "Add rule..."
-msgstr ""
+msgstr "Lisää sääntö..."
 
 msgctxt "#30006"
 msgid "New node..."
-msgstr ""
+msgstr "Uusi solmu..."
 
 msgctxt "#30007"
 msgid "New parent node..."
-msgstr ""
+msgstr "Uusi yläsolmu..."
 
 msgctxt "#30008"
 msgid "Reset library nodes to default..."
-msgstr "Palauta kirjaston solmut oletuksiin..."
+msgstr "Palauta kirjaston solmujen oletusarvot..."
 
 msgctxt "#30009"
 msgid "Add component..."
-msgstr ""
+msgstr "Lisää komponentti..."
 
 msgctxt "#30010"
 msgid "Manually edit..."
-msgstr ""
+msgstr "Manuaalinen muokkaus..."
 
 msgctxt "#30091"
 msgid "Video Library"
@@ -88,95 +88,95 @@ msgstr "Muuta nimeä"
 
 msgctxt "#30102"
 msgid "Edit icon"
-msgstr ""
+msgstr "Muokkaa kuvaketta"
 
 msgctxt "#30103"
 msgid "Browse for icon"
-msgstr "Hae kuvake"
+msgstr "Valitse kuvake"
 
 msgctxt "#30104"
 msgid "Move node"
-msgstr ""
+msgstr "Siirrä solmu"
 
 msgctxt "#30105"
 msgid "Edit visibility"
-msgstr ""
+msgstr "Muokkaa näkyvyyttä"
 
 msgctxt "#30106"
 msgid "Add to main menu"
-msgstr ""
+msgstr "Lisää päävalikkoon"
 
 msgctxt "#30107"
 msgid "Browse for value"
-msgstr ""
+msgstr "Valitse arvo"
 
 msgctxt "#30200"
 msgid "Content"
-msgstr ""
+msgstr "Sisältö"
 
 msgctxt "#30201"
 msgid "Order"
-msgstr ""
+msgstr "Järjestely"
 
 msgctxt "#30202"
 msgid "Grouping"
-msgstr ""
+msgstr "Ryhmittely"
 
 msgctxt "#30203"
 msgid "Limit"
-msgstr ""
+msgstr "Rajoitus"
 
 msgctxt "#30204"
 msgid "Path"
-msgstr "Polku"
+msgstr "Sijainti"
 
 msgctxt "#30205"
 msgid "Rule"
-msgstr ""
+msgstr "Sääntö"
 
 msgctxt "#30206"
 msgid "Match"
-msgstr ""
+msgstr "Täsmäys"
 
 msgctxt "#30300"
 msgid "Set name"
-msgstr ""
+msgstr "Kokoelman nimi"
 
 msgctxt "#30301"
 msgid "Set visibility condition"
-msgstr ""
+msgstr "Aseta näkyvyyden ehto"
 
 msgctxt "#30302"
 msgid "Set order index"
-msgstr ""
+msgstr "Aseta järjestelyn indeksi"
 
 msgctxt "#30303"
 msgid "Name of new parent node"
-msgstr ""
+msgstr "Uuden yläsolmun nimi"
 
 msgctxt "#30304"
 msgid "Start with defaults"
-msgstr ""
+msgstr "Aloita oletuksilla"
 
 msgctxt "#30305"
 msgid "Field"
-msgstr ""
+msgstr "Kenttä"
 
 msgctxt "#30306"
 msgid "Operator"
-msgstr ""
+msgstr "Operaattori"
 
 msgctxt "#30307"
 msgid "Value"
-msgstr ""
+msgstr "Arvo"
 
 msgctxt "#30308"
 msgid "Content type"
-msgstr ""
+msgstr "Sisältötyyppi"
 
 msgctxt "#30309"
 msgid "Content"
-msgstr ""
+msgstr "Sisältö"
 
 msgctxt "#30310"
 msgid "Group"
@@ -184,11 +184,11 @@ msgstr "Ryhmä"
 
 msgctxt "#30311"
 msgid "Limit"
-msgstr ""
+msgstr "Rajoitus"
 
 msgctxt "#30312"
 msgid "Path"
-msgstr "Polku"
+msgstr "Sijainti"
 
 msgctxt "#30313"
 msgid "Icon"
@@ -200,124 +200,124 @@ msgstr "Järjestys"
 
 msgctxt "#30315"
 msgid "Direction"
-msgstr ""
+msgstr "Suunta"
 
 msgctxt "#30316"
 msgid "Name of new node"
-msgstr ""
+msgstr "Uuden solmun nimi"
 
 msgctxt "#30317"
 msgid "Retrieving values..."
-msgstr ""
+msgstr "Noudetaan arvoja..."
 
 msgctxt "#30318"
 msgid "Property"
-msgstr ""
+msgstr "Tietue"
 
 msgctxt "#30400"
 msgid "Unable to copy default library nodes"
-msgstr ""
+msgstr "Kirjaston oletussolmuja ei voitu kopioida"
 
 msgctxt "#30401"
 msgid "Are you sure you want to delete this node?"
-msgstr ""
+msgstr "Haluatko varmasti poistaa solmun?"
 
 msgctxt "#30402"
 msgid "Are you sure you want to reset all nodes?"
-msgstr ""
+msgstr "Halautko varmasti palauttaa kaikki solmut?"
 
 msgctxt "#30403"
 msgid "Are you sure you want to delete this property?"
-msgstr ""
+msgstr "Halautko varmasti poistaa tietueen?"
 
 msgctxt "#30404"
 msgid "Content parameter can't be deleted whilst this node still has an Order, Limit or Rule parameter."
-msgstr ""
+msgstr "Sisällön parametriä ei voida poistaa, kun solmulla on vielä järjestys-, rajoitus- tai sääntöparametri."
 
 msgctxt "#30405"
 msgid "Are you sure you want to delete this rule?"
-msgstr ""
+msgstr "Haluatko varmasti poistaa säännön?"
 
 msgctxt "#30406"
 msgid "Order requires a Content parameter"
-msgstr ""
+msgstr "Järjestys tarvitsee sisältöparametrin"
 
 msgctxt "#30407"
 msgid "Are you sure you want to delete this component?"
-msgstr ""
+msgstr "Haluatko varmasti poistaa komponentin?"
 
 msgctxt "#30408"
 msgid "Custom property..."
-msgstr ""
+msgstr "Oma tietue..."
 
 msgctxt "#30409"
 msgid "No options to select from were found"
-msgstr ""
+msgstr "Valittavissa olevia valintoja ei löytynyt"
 
 msgctxt "#30410"
 msgid "Getting plugin listings..."
-msgstr ""
+msgstr "Noudetaan listausta lisäosista..."
 
 msgctxt "#30411"
 msgid "Link path to here"
-msgstr ""
+msgstr "Linkin polku tänne"
 
 msgctxt "#30500"
 msgid "Genre ID"
-msgstr ""
+msgstr "Lajityyppitunniste"
 
 msgctxt "#30501"
 msgid "Country ID"
-msgstr ""
+msgstr "Maatunniste"
 
 msgctxt "#30502"
 msgid "Studio ID"
-msgstr ""
+msgstr "Studiotunniste"
 
 msgctxt "#30503"
 msgid "Director ID"
-msgstr ""
+msgstr "Ohjaajatunniste"
 
 msgctxt "#30504"
 msgid "Actor ID"
-msgstr ""
+msgstr "Näyttelijätunniste"
 
 msgctxt "#30505"
 msgid "Set ID"
-msgstr ""
+msgstr "Kokoelmatunniste"
 
 msgctxt "#30506"
 msgid "Tag ID"
-msgstr ""
+msgstr "Tagitunniste"
 
 msgctxt "#30507"
 msgid "TV Show ID"
-msgstr ""
+msgstr "Sarjatunniste"
 
 msgctxt "#30508"
 msgid "Artist ID"
-msgstr ""
+msgstr "Esittäjätunniste"
 
 msgctxt "#30509"
 msgid "Album ID"
-msgstr ""
+msgstr "Albumitunniste"
 
 msgctxt "#30510"
 msgid "Role ID"
-msgstr ""
+msgstr "Roolitunniste"
 
 msgctxt "#30511"
 msgid "Song ID"
-msgstr ""
+msgstr "Kappaletunniste"
 
 msgctxt "#30512"
 msgid "Album artists only"
-msgstr ""
+msgstr "Vain albumin esittäjät"
 
 msgctxt "#30513"
 msgid "Show singles"
-msgstr ""
+msgstr "Näytä singlet"
 
 msgctxt "#30514"
 msgid "Plugin..."
-msgstr ""
+msgstr "Lisäosa..."
