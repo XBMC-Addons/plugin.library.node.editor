@@ -25,6 +25,7 @@
         <summary lang="en_NZ">Manage custom library nodes.</summary>
         <summary lang="en_US">Manage custom library nodes.</summary>
         <summary lang="es_ES">Gestionar nodos de colecciones personalizadas.</summary>
+        <summary lang="fi_FI">Muokkaa omia kirjaston solmuja.</summary>
         <summary lang="fr_CA">Gérer des nœuds de médiathèque personnalisés.</summary>
         <summary lang="fr_FR">Gére des nœuds de médiathèque personnalisés.</summary>
         <summary lang="it_IT">Gestisci nodi libreria personalizzati</summary>
@@ -44,6 +45,7 @@
         <description lang="en_NZ">Create and edit custom library nodes.</description>
         <description lang="en_US">Create and edit custom library nodes.</description>
         <description lang="es_ES">Crear y editar nodos de colecciones personalizadas.</description>
+        <description lang="fi_FI">Luo ja muokkaa omia kirjaston solmuja.</description>
         <description lang="fr_CA">Créer et modifier des nœuds de médiathèque personnalisés.</description>
         <description lang="fr_FR">Crée et modifie des nœuds de médiathèque personnalisés.</description>
         <description lang="it_IT">Crea e modifica nodi libreria personalizzati.</description>
