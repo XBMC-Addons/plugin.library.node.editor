@@ -19,6 +19,7 @@
             2.0.5 (31/12/2021)
             - Sync translations
         </news>
+        <summary lang="ca_ES">Gestiona els nodes de la biblioteca personalitzada.</summary>
         <summary lang="da_DK">Administrer brugerdefinerede biblioteksnoder.</summary>
         <summary lang="de_DE">Benutzerdefinierte Bibliotheksknoten verwalten.</summary>
         <summary lang="en_GB">Manage custom library nodes.</summary>
@@ -39,6 +40,7 @@
         <summary lang="sv_SE">Hantera anpassade biblioteksnoder.</summary>
         <summary lang="vi_VN">Quản lý các nút thư viện tùy chỉnh.</summary>
         <summary lang="zh_CN">管理自定义资料库节点。</summary>
+        <description lang="ca_ES">Crea i edita nodes de biblioteca personalitzats.</description>
         <description lang="da_DK">Opret og rediger brugerdefinerede biblioteksnoder.</description>
         <description lang="de_DE">Benutzerdefinierte Bibliotheksknoten erstellen und bearbeiten.</description>
         <description lang="en_GB">Create and edit custom library nodes.</description>
