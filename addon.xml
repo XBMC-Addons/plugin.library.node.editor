@@ -28,8 +28,8 @@
         <summary lang="es_ES">Gestionar nodos de colecciones personalizadas.</summary>
         <summary lang="fi_FI">Muokkaa omia kirjaston solmuja.</summary>
         <summary lang="fr_CA">Gérer des nœuds de médiathèque personnalisés.</summary>
-        <summary lang="fr_FR">Gére des nœuds de médiathèque personnalisés.</summary>
-        <summary lang="it_IT">Gestisci nodi libreria personalizzati.</summary>
+        <summary lang="fr_FR">Gère des nœuds de médiathèque personnalisés.</summary>
+        <summary lang="it_IT">Gestisci nodi personalizzati della libreria.</summary>
         <summary lang="ko_KR">사용자 정의 라이브러리 노드를 관리합니다.</summary>
         <summary lang="lt_LT">Tvarkykite savus bibliotekos mazgus.</summary>
         <summary lang="nl_NL">Beheer aangepaste bibliotheek nodes.</summary>
@@ -49,8 +49,8 @@
         <description lang="es_ES">Crear y editar nodos de colecciones personalizadas.</description>
         <description lang="fi_FI">Luo ja muokkaa omia kirjaston solmuja.</description>
         <description lang="fr_CA">Créer et modifier des nœuds de médiathèque personnalisés.</description>
-        <description lang="fr_FR">Crée et modifie des nœuds de médiathèque personnalisés.</description>
-        <description lang="it_IT">Crea e modifica nodi libreria personalizzati.</description>
+        <description lang="fr_FR">Créer et modifier des nœuds de bibliothèque personnalisés.</description>
+        <description lang="it_IT">Crea e modifica nodi personalizzati della libreria.</description>
         <description lang="ko_KR">사용자 라이브러리 노드를 생성하고 편집합니다.</description>
         <description lang="lt_LT">Sukurkite ir keiskite savus bibliotekos mazgus.</description>
         <description lang="nl_NL">Creëer en wijzig aangepaste bibliotheek nodes.</description>
